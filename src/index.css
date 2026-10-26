@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  /* Fonts */
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Fredoka", ui-sans-serif, system-ui, sans-serif;
+
+  /* Leaf green (brand, Plants) */
+  --color-leaf-50: #f0f9ef;
+  --color-leaf-100: #dcf1dc;
+  --color-leaf-200: #b9e3ba;
+  --color-leaf-500: #3f9b4b;
+  --color-leaf-600: #2f7d3a;
+  --color-leaf-700: #25632e;
+
+  /* Sun yellow (Animals) */
+  --color-sun-100: #fff1c2;
+  --color-sun-400: #ffc83d;
+  --color-sun-500: #f5a623;
+
+  /* Ocean blue (Recycling) */
+  --color-ocean-100: #dcf0fa;
+  --color-ocean-500: #3b9ac9;
+  --color-ocean-600: #2c7ea8;
+
+  /* Neutrals */
+  --color-cream: #fffaf0;
+  --color-bark: #2b3a2f;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-bark);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+  }
+}
