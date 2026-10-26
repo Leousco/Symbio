@@ -29,12 +29,63 @@
 }
 
 @layer base {
+  html {
+    background-color: #eef7f0;
+    background-image:
+      radial-gradient(at 12% 8%, rgb(63 155 75 / 0.40) 0, transparent 50%),
+      radial-gradient(at 88% 18%, rgb(255 200 61 / 0.38) 0, transparent 50%),
+      radial-gradient(at 70% 88%, rgb(59 154 201 / 0.38) 0, transparent 50%),
+      radial-gradient(at 10% 85%, rgb(63 155 75 / 0.25) 0, transparent 45%);
+    background-attachment: fixed;
+    scrollbar-width: none;
+  }
+
+  html::-webkit-scrollbar {
+    display: none; /* Chrome, Edge, Brave, Safari */
+  }
+
   body {
-    background-color: var(--color-cream);
     color: var(--color-bark);
+    min-height: 100vh;
+  }
+
+  /* Colorful backdrop so the glass has something to blur */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-color: #eef7f0;
+    background-image:
+      radial-gradient(at 12% 8%, rgb(63 155 75 / 0.40) 0, transparent 50%),
+      radial-gradient(at 88% 18%, rgb(255 200 61 / 0.38) 0, transparent 50%),
+      radial-gradient(at 70% 88%, rgb(59 154 201 / 0.38) 0, transparent 50%),
+      radial-gradient(at 10% 85%, rgb(63 155 75 / 0.25) 0, transparent 45%);
   }
 
   h1, h2, h3, h4 {
     font-family: var(--font-heading);
   }
+}
+
+/* Light glass: cards, panels, footer */
+@utility glass {
+  background: rgb(255 255 255 / 0.45);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgb(255 255 255 / 0.65);
+  box-shadow:
+    0 8px 32px rgb(31 80 45 / 0.12),
+    inset 0 1px 0 rgb(255 255 255 / 0.8);
+}
+
+/* Dark glass: the navbar pill */
+@utility glass-dark {
+  background: rgb(43 58 47 / 0.78);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgb(255 255 255 / 0.18);
+  box-shadow:
+    0 8px 32px rgb(0 0 0 / 0.25),
+    inset 0 1px 0 rgb(255 255 255 / 0.2);
 }

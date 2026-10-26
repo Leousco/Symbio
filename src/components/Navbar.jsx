@@ -1,65 +1,49 @@
-import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { Globe, Home, PawPrint, Sprout, Recycle } from 'lucide-react'
 
 const links = [
-  { to: '/', label: 'Home' },
-  { to: '/animals', label: 'Animals' },
-  { to: '/plants', label: 'Plants' },
-  { to: '/recycling', label: 'Recycling' },
+  { to: '/', label: 'Home', icon: Home },
+  { to: '/animals', label: 'Animals', icon: PawPrint },
+  { to: '/plants', label: 'Plants', icon: Sprout },
+  { to: '/recycling', label: 'Recycling', icon: Recycle },
 ]
 
 function Navbar() {
-  const [open, setOpen] = useState(false)
-
-  const linkClass = ({ isActive }) =>
-    `rounded-full px-4 py-2 font-semibold transition ${
-      isActive ? 'bg-leaf-500 text-white' : 'hover:bg-leaf-100'
-    }`
-
   return (
-    <header className="sticky top-0 z-50 border-b border-leaf-100 bg-cream/90 backdrop-blur">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <NavLink to="/" className="font-heading text-2xl font-bold text-leaf-600">
-          🌱 Symbio
+    <header className="sticky top-4 z-50 flex justify-center px-4">
+      <nav className="group flex items-center gap-6 rounded-full glass-dark px-5 py-3 text-white">
+        {/* Logo */}
+        <NavLink
+          to="/"
+          className="flex items-center gap-2 font-heading text-xl font-bold"
+        >
+          <Globe size={28} />
+          SYMBIO
         </NavLink>
 
-        {/* Desktop links */}
-        <ul className="hidden gap-2 md:flex">
-          {links.map((link) => (
-            <li key={link.to}>
-              <NavLink to={link.to} className={linkClass}>
-                {link.label}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-
-        {/* Mobile menu button */}
-        <button
-          className="rounded-lg px-3 py-2 text-2xl md:hidden"
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
-        >
-          {open ? '✕' : '☰'}
-        </button>
-      </nav>
-
-      {/* Mobile links */}
-      {open && (
-        <ul className="flex flex-col gap-1 px-4 pb-4 md:hidden">
-          {links.map((link) => (
-            <li key={link.to}>
+        {/* Links */}
+        <ul className="flex items-center gap-1">
+          {links.map(({ to, label, icon: Icon }) => (
+            <li key={to}>
               <NavLink
-                to={link.to}
-                className={linkClass}
-                onClick={() => setOpen(false)}
+                to={to}
+                end={to === '/'}
+                aria-label={label}
+                className={({ isActive }) =>
+                  `flex items-center rounded-full p-2 transition-colors hover:bg-white/15 ${
+                    isActive ? 'bg-leaf-500' : ''
+                  }`
+                }
               >
-                {link.label}
+                <Icon size={20} />
+                <span className="max-w-0 overflow-hidden whitespace-nowrap opacity-0 transition-all duration-300 md:group-hover:ml-2 md:group-hover:max-w-24 md:group-hover:opacity-100 md:group-focus-within:ml-2 md:group-focus-within:max-w-24 md:group-focus-within:opacity-100">
+                  {label}
+                </span>
               </NavLink>
             </li>
           ))}
         </ul>
-      )}
+      </nav>
     </header>
   )
 }
