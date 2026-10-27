@@ -30,6 +30,7 @@
 
 @layer base {
   html {
+    scroll-behavior: smooth;
     background-color: #eef7f0;
     background-image:
       radial-gradient(at 12% 8%, rgb(63 155 75 / 0.40) 0, transparent 50%),
@@ -38,6 +39,12 @@
       radial-gradient(at 10% 85%, rgb(63 155 75 / 0.25) 0, transparent 45%);
     background-attachment: fixed;
     scrollbar-width: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 
   html::-webkit-scrollbar {

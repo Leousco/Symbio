@@ -3,7 +3,7 @@ import Layout from './components/Layout'
 import Home from './pages/Home'
 import Animals from './pages/Animals'
 import Plants from './pages/Plants'
-import Recycling from './pages/Recycling'
+import Environment from './pages/Environment'
 import NotFound from './pages/NotFound'
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/animals" element={<Animals />} />
         <Route path="/plants" element={<Plants />} />
-        <Route path="/recycling" element={<Recycling />} />
+        <Route path="/environment" element={<Environment />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
