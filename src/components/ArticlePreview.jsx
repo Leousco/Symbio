@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react'
 
 // An open, magazine-style preview (no card box).
 // Readers pick one of three sections and the text + big icon change.
-function ArticlePreview({ article, flip = false }) {
+function ArticlePreview({ article, flip = false, showLink = true }) {
   const [active, setActive] = useState(0)
   const baseId = useId()
 
@@ -40,7 +40,8 @@ function ArticlePreview({ article, flip = false }) {
       <div className="w-full md:w-7/12">
         <p className="flex items-center gap-2 text-sm font-extrabold uppercase tracking-wide text-bark/70">
           <span className={`h-2.5 w-2.5 rounded-full ${article.dot}`} aria-hidden="true" />
-          {article.topic} · {article.readTime}
+          {article.topic}
+          {article.readTime ? ` · ${article.readTime}` : ''}
         </p>
 
         <h3 className="mt-2 font-heading text-3xl font-semibold leading-tight sm:text-4xl">
@@ -86,13 +87,15 @@ function ArticlePreview({ article, flip = false }) {
           {step.text}
         </div>
 
-        <Link
-          to={article.to}
-          className="group mt-4 inline-flex items-center gap-2 font-bold text-leaf-700 hover:text-leaf-600"
-        >
-          Explore {article.topic.toLowerCase()}
-          <ArrowRight size={18} className="transition group-hover:translate-x-1" />
-        </Link>
+        {showLink && (
+          <Link
+            to={article.to}
+            className="group mt-4 inline-flex items-center gap-2 font-bold text-leaf-700 hover:text-leaf-600"
+          >
+            Explore {article.topic.toLowerCase()}
+            <ArrowRight size={18} className="transition group-hover:translate-x-1" />
+          </Link>
+        )}
       </div>
     </article>
   )

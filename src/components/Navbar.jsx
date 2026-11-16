@@ -11,18 +11,18 @@ const links = [
 function Navbar() {
   return (
     <header className="sticky top-4 z-50 flex justify-center px-4">
-      <nav className="group flex items-center gap-6 rounded-full glass-dark px-5 py-3 text-white">
+      <nav className="group flex items-center gap-3 rounded-full glass-dark px-4 py-3 text-white sm:gap-6 sm:px-5">
         {/* Logo */}
         <NavLink
           to="/"
-          className="flex items-center gap-2 font-heading text-xl font-bold"
+          className="flex items-center gap-2 font-heading text-lg font-bold sm:text-xl"
         >
           <Globe size={28} />
           SYMBIO
         </NavLink>
 
         {/* Links */}
-        <ul className="flex items-center gap-1">
+        <ul className="flex items-center gap-0.5 sm:gap-1">
           {links.map(({ to, label, icon: Icon }) => (
             <li key={to}>
               <NavLink
@@ -30,7 +30,7 @@ function Navbar() {
                 end={to === '/'}
                 aria-label={label}
                 className={({ isActive }) =>
-                  `flex items-center rounded-full p-2 transition-colors hover:bg-white/15 ${
+                  `flex items-center rounded-full p-1.5 transition-colors hover:bg-white/15 sm:p-2 ${
                     isActive ? 'bg-leaf-600' : ''
                   }`
                 }
