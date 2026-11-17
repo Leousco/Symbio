@@ -31,13 +31,14 @@ function readPlant(water, sunlight, temperature, soil) {
 
 const toneByKey = {
   happy: 'border border-leaf-600/40 bg-leaf-100 text-leaf-700',
-  dry: 'border border-sun-500/40 bg-sun-100 text-[#8a6d1f]',
+  dry: 'border border-sun-500/40 bg-sun-100 text-[#8a6d1f] dark:text-sun-400',
   soggy: 'border border-ocean-500/40 bg-ocean-100 text-ocean-600',
   dark: 'border border-bark/20 bg-bark/10 text-bark',
-  scorched: 'border border-[#d16b5a]/40 bg-[#fbe6e1] text-[#a8412f]',
-  soil: 'border border-[#b99a63]/50 bg-[#f3e9d6] text-[#7a5f33]',
+  scorched:
+    'border border-[#d16b5a]/40 bg-[#fbe6e1] text-[#a8412f] dark:bg-[#3a1c1f] dark:text-[#fca5a5]',
+  soil: 'border border-[#b99a63]/50 bg-[#f3e9d6] text-[#7a5f33] dark:bg-[#2c2517] dark:text-[#e8d6ad]',
   cold: 'border border-ocean-500/40 bg-ocean-100 text-ocean-600',
-  hot: 'border border-[#d16b5a]/35 bg-[#fbe6e1] text-[#8a493b]',
+  hot: 'border border-[#d16b5a]/35 bg-[#fbe6e1] text-[#8a493b] dark:bg-[#3a1c1f] dark:text-[#fca5a5]',
 }
 
 function PlantArt({ water, sunlight, temperature, soil }) {
@@ -186,7 +187,7 @@ function GrowLab() {
         </div>
         <span
           className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-extrabold transition ${
-            happy ? 'bg-leaf-600 text-white' : 'bg-white/70 text-bark/70'
+            happy ? 'bg-leaf-600 text-cream' : 'bg-surface/70 text-bark/70'
           }`}
         >
           <Sparkles size={16} />
@@ -195,7 +196,7 @@ function GrowLab() {
       </div>
 
       <div className="grid gap-5 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch">
-        <div className="space-y-5 rounded-3xl border border-white/80 bg-white/55 p-5 sm:p-6">
+        <div className="space-y-5 rounded-3xl border border-hairline/80 bg-surface/55 p-5 sm:p-6">
           <div>
             <div className="flex items-center justify-between gap-3">
               <label htmlFor="water" className="flex items-center gap-2 font-bold">
@@ -270,8 +271,8 @@ function GrowLab() {
                     onClick={() => setSoil(id)}
                     className={`min-h-11 rounded-2xl border-2 px-3 text-sm font-bold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600 ${
                       soil === id
-                        ? 'border-bark bg-bark text-white'
-                        : 'border-white bg-white/80 text-bark hover:bg-white'
+                        ? 'border-bark bg-bark text-cream'
+                        : 'border-hairline bg-surface/80 text-bark hover:bg-surface'
                     }`}
                   >
                     {label} soil
@@ -289,15 +290,15 @@ function GrowLab() {
               setTemperature(START.temperature)
               setSoil(START.soil)
             }}
-            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-bark/20 bg-white/70 px-4 text-sm font-bold transition hover:bg-white"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-bark/20 bg-surface/70 px-4 text-sm font-bold transition hover:bg-surface"
           >
             <RotateCcw size={16} />
             Reset
           </button>
         </div>
 
-        <div className="relative flex h-full min-h-56 items-center justify-center overflow-hidden rounded-[2rem] border border-white/75 bg-linear-to-b from-[#d8eef4] via-[#f6faf1] to-[#e2ebd8] p-4">
-          <div aria-hidden="true" className="absolute left-0 right-0 top-[80%] h-px bg-white/70" />
+        <div className="relative flex h-full min-h-56 items-center justify-center overflow-hidden rounded-[2rem] border border-hairline/75 bg-linear-to-b from-[#d8eef4] via-[#f6faf1] to-[#e2ebd8] p-4 dark:from-[#0f2a33] dark:via-[#101a26] dark:to-[#12251c]">
+          <div aria-hidden="true" className="absolute left-0 right-0 top-[80%] h-px bg-surface/70" />
           <div className="relative h-64 w-56">
             <PlantArt water={water} sunlight={sunlight} temperature={temperature} soil={soil} />
           </div>

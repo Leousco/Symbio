@@ -30,7 +30,7 @@ const quizLevels = [
     level: 'Level 3',
     title: 'Genius',
     text: 'The toughest questions for curious minds ready for a real challenge.',
-    badge: 'bg-[#fbdada]',
+    badge: 'bg-[#fbdada] dark:bg-[#3a1d2a]',
   },
 ]
 
@@ -40,7 +40,7 @@ function Home() {
       {/* Hero */}
       <section className="grid items-center gap-10 py-4 sm:py-12 lg:grid-cols-2">
         <div className="flex flex-col items-start gap-6">
-          <span className="rounded-full border border-white/80 bg-white/60 px-4 py-1.5 text-sm font-extrabold text-leaf-700">
+          <span className="rounded-full border border-hairline/80 bg-surface/60 px-4 py-1.5 text-sm font-extrabold text-leaf-700">
             Science for curious beginners
           </span>
           <h1 className="text-5xl font-bold leading-tight sm:text-6xl lg:text-7xl">
@@ -53,14 +53,14 @@ function Home() {
           <div className="flex flex-wrap gap-3">
             <Link
               to="/animals"
-              className="group inline-flex min-h-13 items-center gap-2 rounded-full bg-leaf-600 px-7 text-lg font-bold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-leaf-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
+              className="group inline-flex min-h-13 items-center gap-2 rounded-full bg-leaf-600 px-7 text-lg font-bold text-cream shadow-lg transition hover:-translate-y-0.5 hover:bg-leaf-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
             >
               Start exploring
               <ArrowRight size={20} className="transition group-hover:translate-x-1" />
             </Link>
             <a
               href="#fact"
-              className="inline-flex min-h-13 items-center rounded-full border border-bark/20 bg-white/60 px-7 text-lg font-bold transition hover:bg-white/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
+              className="inline-flex min-h-13 items-center rounded-full border border-bark/20 bg-surface/60 px-7 text-lg font-bold transition hover:bg-surface/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
             >
               See today&apos;s fact
             </a>
@@ -106,7 +106,7 @@ function Home() {
               key={to}
               as={Link}
               to={to}
-              className="group flex flex-col gap-3 transition duration-300 hover:-translate-y-1.5 hover:bg-white/60 sm:p-7"
+              className="group flex flex-col gap-3 transition duration-300 hover:-translate-y-1.5 hover:bg-surface/60 sm:p-7"
             >
               <span className={`inline-flex w-fit rounded-2xl p-3.5 ${badge}`}>
                 <Icon size={30} />
@@ -145,7 +145,7 @@ function Home() {
           </p>
         </div>
         {articles.map((article, i) => (
-          <div key={article.id} className={i > 0 ? 'border-t border-white/70 pt-14' : ''}>
+          <div key={article.id} className={i > 0 ? 'border-t border-hairline/70 pt-14' : ''}>
             <ArticlePreview article={article} flip={i % 2 === 1} />
           </div>
         ))}

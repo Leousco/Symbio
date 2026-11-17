@@ -9,7 +9,7 @@ function TopicQuiz({
   title,
   description,
   questions,
-  accentClass = 'bg-bark text-white',
+  accentClass = 'bg-bark text-cream',
 }) {
   const [index, setIndex] = useState(0)
   const [picked, setPicked] = useState(null)
@@ -60,7 +60,7 @@ function TopicQuiz({
       </div>
 
       {finished ? (
-        <div className="animate-pop rounded-3xl border border-white/70 bg-white/70 p-6 text-center motion-reduce:animate-none">
+        <div className="animate-pop rounded-3xl border border-hairline/70 bg-surface/70 p-6 text-center motion-reduce:animate-none">
           <p className="font-heading text-2xl font-semibold">
             {score} of {questions.length} correct
           </p>
@@ -74,7 +74,7 @@ function TopicQuiz({
           <button
             type="button"
             onClick={restart}
-            className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full bg-bark px-5 font-bold text-white transition hover:-translate-y-0.5"
+            className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full bg-bark px-5 font-bold text-cream transition hover:-translate-y-0.5"
           >
             <RotateCcw size={18} />
             Try again
@@ -89,11 +89,11 @@ function TopicQuiz({
               const isPicked = picked === i
               const isAnswer = question.answer === i
               const tone = !answered
-                ? 'glass hover:bg-white/70'
+                ? 'glass hover:bg-surface/70'
                 : isAnswer
                   ? 'border-leaf-600 bg-leaf-100 text-leaf-700'
                   : isPicked
-                    ? 'border-[#d16b5a] bg-[#fbe6e1] text-[#a8412f]'
+                    ? 'border-[#d16b5a] bg-[#fbe6e1] text-[#a8412f] dark:bg-[#3a1c1f] dark:text-[#fca5a5]'
                     : 'glass opacity-60'
               return (
                 <button
@@ -126,7 +126,7 @@ function TopicQuiz({
             <button
               type="button"
               onClick={next}
-              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-bark px-5 font-bold text-white transition hover:-translate-y-0.5"
+              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-bark px-5 font-bold text-cream transition hover:-translate-y-0.5"
             >
               {isLast ? 'See result' : 'Next question'}
               <ArrowRight size={18} />

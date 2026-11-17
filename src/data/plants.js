@@ -101,15 +101,15 @@ export const plants = [
     group: 'Flowers',
     superpower: 'Turns its head to follow the sun',
     icon: Flower2,
-    visual: 'bg-linear-to-br from-sun-100 to-sun-500 text-bark',
+    visual: 'bg-linear-to-br from-sun-100 to-sun-500 text-ink',
     stats: [
       { label: 'Height', value: 'Up to 3 m' },
       { label: 'Seeds', value: '2,000 per head' },
       { label: 'Family', value: 'Daisy' },
     ],
     media: [
-      { label: 'Facing the sun', icon: Sun, visual: 'bg-linear-to-br from-sun-100 to-sun-500 text-bark' },
-      { label: 'The head', icon: Flower2, visual: 'bg-linear-to-br from-[#ffe6b8] to-sun-500 text-bark' },
+      { label: 'Facing the sun', icon: Sun, visual: 'bg-linear-to-br from-sun-100 to-sun-500 text-ink' },
+      { label: 'The head', icon: Flower2, visual: 'bg-linear-to-br from-[#ffe6b8] to-sun-500 text-ink' },
       { label: 'The seeds', icon: Sprout, visual: 'bg-linear-to-br from-[#e3d3b5] to-[#8a7a5e] text-white' },
     ],
     intro:
@@ -190,8 +190,8 @@ export const plants = [
     ],
     media: [
       { label: 'The stem', icon: Sprout, visual: 'bg-linear-to-br from-[#e2ebd8] to-[#8a9a5b] text-white' },
-      { label: 'The spines', icon: Sun, visual: 'bg-linear-to-br from-sun-100 to-sun-500 text-bark' },
-      { label: 'The desert', icon: Sun, visual: 'bg-linear-to-br from-[#ffe6b8] to-[#e08a3c] text-bark' },
+      { label: 'The spines', icon: Sun, visual: 'bg-linear-to-br from-sun-100 to-sun-500 text-ink' },
+      { label: 'The desert', icon: Sun, visual: 'bg-linear-to-br from-[#ffe6b8] to-[#e08a3c] text-ink' },
     ],
     intro:
       'A cactus is built to hold water. Its stem swells after rain, and its leaves have become spines to save every drop.',

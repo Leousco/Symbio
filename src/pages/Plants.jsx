@@ -21,7 +21,7 @@ function Plants() {
         highlightClass="text-leaf-600"
         description="No mouth, no stomach, no problem. Plants build their own food from light, water and air — and hand us the oxygen as a bonus."
         icon={Flower2}
-        orb="bg-linear-to-br from-leaf-100 via-leaf-500 to-leaf-700"
+        orb="bg-linear-to-br from-leaf-100 via-leaf-500 to-leaf-700 dark:from-[#0c2a19] dark:via-[#1f8a4c] dark:to-[#166534]"
         chips={[
           { icon: Flower2, label: '10 plants' },
           { icon: Droplets, label: 'Water from roots' },
@@ -37,7 +37,7 @@ function Plants() {
         description="Trees, flowers, water plants and a few odd ones. Tap a card to see how it lives."
         items={plants}
         groups={plantGroups}
-        accentClass="bg-leaf-600 text-white"
+        accentClass="bg-leaf-600 text-cream"
       />
 
       {article && (
@@ -51,7 +51,7 @@ function Plants() {
         title={plantsQuiz.title}
         description={plantsQuiz.description}
         questions={plantsQuiz.questions}
-        accentClass="bg-leaf-600 text-white"
+        accentClass="bg-leaf-600 text-cream"
       />
 
       <NextTopic
@@ -59,7 +59,7 @@ function Plants() {
         title="Environment"
         text="Plants make the air and hold the soil. Keeping that system healthy is the environment story."
         icon={Earth}
-        visual="bg-ocean-600 text-white"
+        visual="bg-ocean-600 text-cream"
       />
     </div>
   )

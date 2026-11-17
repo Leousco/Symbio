@@ -209,10 +209,10 @@ function ArticlePreview({ article, flip = false, showLink = true }) {
           <StepSlideshow images={images} activeImageRef={activeImage} />
         </div>
 
-        <span className="glass pointer-events-none absolute left-4 top-4 z-30 rounded-full px-4 py-1.5 text-sm font-bold text-bark">
+        <span className="glass pointer-events-none absolute left-4 top-4 z-30 rounded-full px-4 py-1.5 text-sm font-bold text-bark dark:bg-[#0b0d1c]/80 dark:text-white">
           {article.topic}
         </span>
-        <span className="glass pointer-events-none absolute bottom-4 right-4 z-30 rounded-full px-4 py-1.5 text-sm font-bold text-bark">
+        <span className="glass pointer-events-none absolute bottom-4 right-4 z-30 rounded-full px-4 py-1.5 text-sm font-bold text-bark dark:bg-[#0b0d1c]/80 dark:text-white">
           {step.label}
         </span>
       </div>
@@ -248,7 +248,7 @@ function ArticlePreview({ article, flip = false, showLink = true }) {
                 aria-controls={`${baseId}-panel`}
                 onClick={() => selectStep(i)}
                 className={`inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-bold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600 ${
-                  selected ? 'bg-bark text-white' : 'glass hover:bg-white/70'
+                  selected ? 'bg-bark text-cream' : 'glass hover:bg-surface/70'
                 }`}
               >
                 {Icon && <Icon size={18} aria-hidden="true" />}

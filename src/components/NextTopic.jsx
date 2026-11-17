@@ -5,7 +5,7 @@ function NextTopic({ kicker = 'Next up', title, text, to, icon: Icon, visual }) 
   return (
     <Link
       to={to}
-      className="group glass flex flex-wrap items-center gap-6 rounded-4xl p-6 transition duration-300 hover:-translate-y-1 hover:bg-white/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600 sm:p-8"
+      className="group glass flex flex-wrap items-center gap-6 rounded-4xl p-6 transition duration-300 hover:-translate-y-1 hover:bg-surface/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600 sm:p-8"
     >
       <span className={`flex h-20 w-20 flex-none items-center justify-center rounded-3xl ${visual}`}>
         <Icon size={38} strokeWidth={1.5} />

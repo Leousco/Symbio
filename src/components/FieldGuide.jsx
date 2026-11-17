@@ -11,7 +11,7 @@ function FieldGuide({
   description,
   items,
   groups,
-  accentClass = 'bg-bark text-white',
+  accentClass = 'bg-bark text-cream',
 }) {
   const [filter, setFilter] = useState('All')
   const [activeId, setActiveId] = useState(null)
@@ -60,7 +60,7 @@ function FieldGuide({
               aria-pressed={selected}
               onClick={() => setFilter(group)}
               className={`min-h-10 rounded-full px-4 text-sm font-bold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600 ${
-                selected ? accentClass : 'glass text-bark hover:bg-white/70'
+                selected ? accentClass : 'glass text-bark hover:bg-surface/70'
               }`}
             >
               {group}
@@ -78,7 +78,7 @@ function FieldGuide({
               type="button"
               data-id={item.id}
               onClick={() => setActiveId(item.id)}
-              className="group glass flex w-full flex-col overflow-hidden rounded-3xl p-0 text-left transition duration-300 hover:-translate-y-1.5 hover:bg-white/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
+              className="group glass flex w-full flex-col overflow-hidden rounded-3xl p-0 text-left transition duration-300 hover:-translate-y-1.5 hover:bg-surface/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
             >
               <span
                 className={`relative flex h-36 items-center justify-center ${item.visual}`}
@@ -89,7 +89,7 @@ function FieldGuide({
                   strokeWidth={1.3}
                   className="transition duration-500 group-hover:scale-110"
                 />
-                <span className="absolute left-3 top-3 rounded-full bg-white/85 px-3 py-1 text-xs font-extrabold text-bark">
+                <span className="absolute left-3 top-3 rounded-full bg-surface/85 px-3 py-1 text-xs font-extrabold text-bark dark:bg-[#0b0d1c]/80 dark:text-white">
                   {item.group}
                 </span>
               </span>

@@ -5,7 +5,7 @@ function NotFound() {
     <section className="py-16 text-center">
       <h1 className="text-5xl font-bold">404</h1>
       <p className="mt-2">We couldn't find that page.</p>
-      <Link to="/" className="mt-6 inline-block rounded-full bg-leaf-500 px-6 py-3 font-semibold text-white">
+      <Link to="/" className="mt-6 inline-block rounded-full bg-leaf-500 px-6 py-3 font-semibold text-cream">
         Back to Home
       </Link>
     </section>

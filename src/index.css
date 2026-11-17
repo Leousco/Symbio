@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Dark mode is switched by adding the "dark" class to <html>.
+   Use `dark:` in components for one-off tweaks, e.g. `dark:bg-white/5`. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Fonts */
   --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
@@ -27,12 +31,57 @@
   --color-cream: #fffaf0;
   --color-bark: #2b3a2f;
 
+  /* Theme-aware surfaces: literal white panels/borders in the light theme
+     become faint glass in the dark theme. `ink` is fixed dark text that sits
+     on bright accent fills (sun yellow) in both themes. */
+  --color-surface: #ffffff;
+  --color-hairline: #ffffff;
+  --color-ink: #22301f;
+
   /* Motion */
   --animate-pop: pop 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-rise: rise 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-fade-in: fade-in 180ms ease-out both;
   --animate-modal-in: modal-in 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-modal-out: modal-out 170ms ease-in both;
+}
+
+/* ------------------------------------------------------------------
+   Dark mode: "Aurora Night"
+   Same token names as above, night values. Every utility that uses
+   these tokens (bg-leaf-500, text-bark, bg-cream...) switches
+   automatically when <html class="dark">.
+   Note: the "ocean" tokens become aurora violet in dark mode.
+   ------------------------------------------------------------------ */
+.dark {
+  color-scheme: dark;
+
+  /* Leaf green: light tints become deep tints, brand stays bright */
+  --color-leaf-50: #10241a;
+  --color-leaf-100: #14301f;
+  --color-leaf-200: #1c4a2c;
+  --color-leaf-500: #4ade80;
+  --color-leaf-600: #22a35a;
+  --color-leaf-700: #86efac;
+
+  /* Sun yellow */
+  --color-sun-100: #3a3010;
+  --color-sun-400: #fcd34d;
+  --color-sun-500: #fbbf24;
+
+  /* Ocean -> aurora violet */
+  --color-ocean-100: #231e45;
+  --color-ocean-500: #7c6adb;
+  --color-ocean-600: #a78bfa;
+
+  /* Neutrals: cream becomes a night surface, bark becomes the text color */
+  --color-cream: #151833;
+  --color-bark: #ecf0ff;
+
+  /* White panels/borders become translucent night glass. The alpha is baked
+     into the token, so `bg-surface/60` resolves to ~10% white here. */
+  --color-surface: rgb(255 255 255 / 0.16);
+  --color-hairline: rgb(255 255 255 / 0.22);
 }
 
 @keyframes pop {
@@ -98,21 +147,84 @@
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-    background-color: #eef7f0;
-    background-image:
+  /* Backdrop + glass values per theme (light by default) */
+  :root {
+    --backdrop-base: #eef7f0;
+
+    /* The day backdrop is always painted; the night backdrop is an opaque
+       layer stacked on top of it that fades in. Only one layer animates, and
+       only its opacity, so the switch stays on the compositor. */
+    --backdrop-day:
       radial-gradient(at 12% 8%, rgb(63 155 75 / 0.40) 0, transparent 50%),
       radial-gradient(at 88% 18%, rgb(255 200 61 / 0.38) 0, transparent 50%),
       radial-gradient(at 70% 88%, rgb(59 154 201 / 0.38) 0, transparent 50%),
       radial-gradient(at 10% 85%, rgb(63 155 75 / 0.25) 0, transparent 45%);
-    background-attachment: fixed;
+    --backdrop-night:
+      radial-gradient(at 12% 8%, rgb(74 222 128 / 0.26) 0, transparent 50%),
+      radial-gradient(at 88% 18%, rgb(167 139 250 / 0.26) 0, transparent 50%),
+      radial-gradient(at 70% 88%, rgb(45 212 191 / 0.26) 0, transparent 50%),
+      radial-gradient(at 10% 85%, rgb(74 222 128 / 0.14) 0, transparent 45%);
+    --backdrop-night-base: #0b0d1c;
+
+    --glass-bg: rgb(255 255 255 / 0.45);
+    --glass-border: rgb(255 255 255 / 0.65);
+    --glass-shadow: 0 8px 32px rgb(31 80 45 / 0.12);
+    --glass-highlight: rgb(255 255 255 / 0.8);
+
+    /* The sliding navbar highlight; links brighten on hover instead of
+       painting a background, so hover never competes with the pill. */
+    --nav-pill: #46a556;
+    --nav-pill-glow: rgb(70 165 86 / 0.5);
+
+    --glass-dark-bg: rgb(43 58 47 / 0.78);
+    --glass-dark-border: rgb(255 255 255 / 0.18);
+    --glass-dark-shadow: 0 8px 32px rgb(0 0 0 / 0.25);
+    --glass-dark-highlight: rgb(255 255 255 / 0.2);
+  }
+
+  /* Aurora Night: green top-left, violet top-right, teal bottom-right */
+  .dark {
+    --glass-bg: rgb(255 255 255 / 0.07);
+    --glass-border: rgb(255 255 255 / 0.14);
+    --glass-shadow: 0 8px 32px rgb(0 0 0 / 0.4);
+    --glass-highlight: rgb(255 255 255 / 0.12);
+
+    --nav-pill: #22a35a;
+    --nav-pill-glow: rgb(34 163 90 / 0.5);
+
+    --glass-dark-bg: rgb(8 9 22 / 0.75);
+    --glass-dark-border: rgb(255 255 255 / 0.16);
+    --glass-dark-shadow: 0 8px 32px rgb(0 0 0 / 0.5);
+    --glass-dark-highlight: rgb(255 255 255 / 0.12);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--backdrop-base);
     scrollbar-width: none;
+  }
+
+  /* Colors fade instead of snapping when the theme flips. Utility classes that
+     set their own transition (transition, transition-colors, ...) still win.
+     Kept to colour-only properties on purpose: shadows and filters repaint far
+     more pixels per frame, which is what made the switch look janky. */
+  *,
+  *::before,
+  *::after {
+    transition-property: background-color, border-color, color;
+    transition-duration: 400ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0ms;
     }
   }
 
@@ -125,43 +237,91 @@
     min-height: 100vh;
   }
 
-  /* Colorful backdrop so the glass has something to blur */
-  body::before {
+  /* Colorful backdrop so the glass has something to blur. The day layer sits
+     underneath; the opaque night layer fades in on top of it. */
+  body::before,
+  body::after {
     content: "";
     position: fixed;
     inset: 0;
     z-index: -1;
-    background-color: #eef7f0;
-    background-image:
-      radial-gradient(at 12% 8%, rgb(63 155 75 / 0.40) 0, transparent 50%),
-      radial-gradient(at 88% 18%, rgb(255 200 61 / 0.38) 0, transparent 50%),
-      radial-gradient(at 70% 88%, rgb(59 154 201 / 0.38) 0, transparent 50%),
-      radial-gradient(at 10% 85%, rgb(63 155 75 / 0.25) 0, transparent 45%);
+    pointer-events: none;
+  }
+
+  body::before {
+    background-image: var(--backdrop-day);
+  }
+
+  body::after {
+    background-color: var(--backdrop-night-base);
+    background-image: var(--backdrop-night);
+    opacity: 0;
+    will-change: opacity;
+    transition: opacity 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark body::after {
+    opacity: 1;
   }
 
   h1, h2, h3, h4 {
     font-family: var(--font-heading);
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    body::before,
+    body::after {
+      transition: none;
+    }
+  }
 }
 
-/* Light glass: cards, panels, footer */
+/* Navbar selection pill: one shared element that slides between links.
+   Only transform/width/height animate, with a soft outer glow instead of a
+   hard edge so it melts into the glass behind it. */
+@layer components {
+  .nav-pill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    border-radius: 9999px;
+    pointer-events: none;
+    background-color: var(--nav-pill);
+    box-shadow: 0 0 16px 3px var(--nav-pill-glow);
+    transition:
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      width 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      height 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 220ms ease;
+    will-change: transform, width, height;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-pill {
+      transition: none;
+    }
+  }
+}
+
+/* Light glass: cards, panels, footer (adapts to the theme) */
 @utility glass {
-  background: rgb(255 255 255 / 0.45);
+  background: var(--glass-bg);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
   backdrop-filter: blur(16px) saturate(160%);
-  border: 1px solid rgb(255 255 255 / 0.65);
+  border: 1px solid var(--glass-border);
   box-shadow:
-    0 8px 32px rgb(31 80 45 / 0.12),
-    inset 0 1px 0 rgb(255 255 255 / 0.8);
+    var(--glass-shadow),
+    inset 0 1px 0 var(--glass-highlight);
 }
 
-/* Dark glass: the navbar pill */
+/* Dark glass: the navbar pill (adapts to the theme) */
 @utility glass-dark {
-  background: rgb(43 58 47 / 0.78);
+  background: var(--glass-dark-bg);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
   backdrop-filter: blur(16px) saturate(140%);
-  border: 1px solid rgb(255 255 255 / 0.18);
+  border: 1px solid var(--glass-dark-border);
   box-shadow:
-    0 8px 32px rgb(0 0 0 / 0.25),
-    inset 0 1px 0 rgb(255 255 255 / 0.2);
+    var(--glass-dark-shadow),
+    inset 0 1px 0 var(--glass-dark-highlight);
 }

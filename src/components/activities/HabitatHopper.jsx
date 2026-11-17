@@ -60,7 +60,7 @@ function HabitatHopper() {
               aria-pressed={selected}
               onClick={() => chooseHabitat(id)}
               className={`inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-bold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600 ${
-                selected ? 'bg-bark text-white' : 'glass hover:bg-white/70'
+                selected ? 'bg-bark text-cream' : 'glass hover:bg-surface/70'
               }`}
             >
               <Icon size={17} />
@@ -109,7 +109,7 @@ function HabitatHopper() {
           })}
         </div>
 
-        <div className="mt-5 rounded-3xl border border-white/80 bg-white/80 p-5">
+        <div className="mt-5 rounded-3xl border border-hairline/80 bg-surface/80 p-5">
           <p className="font-bold">{challenge.question}</p>
           <div className="mt-3 grid gap-2 sm:grid-cols-2">
             {challenge.options.map((option, index) => {
@@ -120,8 +120,8 @@ function HabitatHopper() {
                 : isAnswer
                   ? 'border-leaf-600 bg-leaf-100 text-leaf-700'
                   : isPicked
-                    ? 'border-[#d16b5a] bg-[#fbe6e1] text-[#a8412f]'
-                    : 'border-bark/10 bg-white/50 opacity-60'
+                    ? 'border-[#d16b5a] bg-[#fbe6e1] text-[#a8412f] dark:bg-[#3a1c1f] dark:text-[#fca5a5]'
+                    : 'border-bark/10 bg-surface/50 opacity-60'
               return (
                 <button
                   key={option}

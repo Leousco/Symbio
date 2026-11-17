@@ -32,12 +32,12 @@ function CoachNote({ item, solved, missed }) {
     <div
       aria-live="polite"
       className={`mt-4 flex h-[170px] items-center gap-3 overflow-hidden rounded-2xl border p-3.5 transition-colors min-[360px]:h-[146px] min-[430px]:h-[122px] sm:h-[98px] md:h-[146px] lg:h-[98px] ${
-        isFact ? 'border-leaf-600/30 bg-leaf-50' : 'border-bark/10 bg-white/70'
+        isFact ? 'border-leaf-600/30 bg-leaf-50' : 'border-bark/10 bg-surface/70'
       }`}
     >
       <span
         className={`flex h-9 w-9 flex-none items-center justify-center rounded-full ${
-          isFact ? 'bg-leaf-100 text-leaf-700' : 'bg-sun-100 text-[#8a6d1f]'
+          isFact ? 'bg-leaf-100 text-leaf-700' : 'bg-sun-100 text-[#8a6d1f] dark:text-sun-400'
         }`}
         aria-hidden="true"
       >
@@ -126,11 +126,11 @@ function Sorter({ bins, items, className = '', coach = false }) {
   const resultPanel = finished ? (
     <div
       role="status"
-      className="absolute inset-0 flex animate-pop flex-col items-center justify-center rounded-3xl border border-white/80 bg-white/60 px-6 py-12 text-center motion-reduce:animate-none"
+      className="absolute inset-0 flex animate-pop flex-col items-center justify-center rounded-3xl border border-hairline/80 bg-surface/60 px-6 py-12 text-center motion-reduce:animate-none"
     >
       <span
         className={`flex h-14 w-14 items-center justify-center rounded-full ${
-          perfect ? 'bg-leaf-100 text-leaf-700' : 'bg-sun-100 text-[#8a6d1f]'
+          perfect ? 'bg-leaf-100 text-leaf-700' : 'bg-sun-100 text-[#8a6d1f] dark:text-sun-400'
         }`}
         aria-hidden="true"
       >
@@ -151,7 +151,7 @@ function Sorter({ bins, items, className = '', coach = false }) {
       <button
         type="button"
         onClick={reset}
-        className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full bg-bark px-5 font-bold text-white transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-bark/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
+        className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full bg-bark px-5 font-bold text-cream transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-bark/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
       >
         <RotateCcw size={18} />
         Play again
@@ -174,7 +174,7 @@ function Sorter({ bins, items, className = '', coach = false }) {
       >
         <div className="grid gap-5 md:grid-cols-2">
         {/* Object card: the right half on desktop, first on mobile */}
-        <div className="flex h-full flex-col rounded-3xl border border-white/80 bg-white/60 p-4 md:order-last">
+        <div className="flex h-full flex-col rounded-3xl border border-hairline/80 bg-surface/60 p-4 md:order-last">
           <div className="flex items-center justify-between text-sm font-bold text-bark/70">
             <span className="tabular-nums">
               Item {index + 1} of {deck.length}
@@ -186,7 +186,7 @@ function Sorter({ bins, items, className = '', coach = false }) {
             key={item.name}
             className="mt-3 flex min-h-0 flex-1 animate-pop flex-col motion-reduce:animate-none"
           >
-            <div className="flex aspect-[3/2] items-center justify-center overflow-hidden rounded-2xl bg-linear-to-br from-[#eaf2e6] to-[#dfe9d9] ring-1 ring-inset ring-bark/5">
+            <div className="flex aspect-[3/2] items-center justify-center overflow-hidden rounded-2xl bg-linear-to-br from-[#eaf2e6] to-[#dfe9d9] ring-1 ring-inset ring-bark/5 dark:from-[#13251b] dark:to-[#0f1f17]">
               {item.photo ? (
                 <img
                   src={item.photo}
@@ -235,8 +235,8 @@ function Sorter({ bins, items, className = '', coach = false }) {
                 solved && isAnswer
                   ? 'border-leaf-600 bg-leaf-100'
                   : wrongBin === id
-                    ? 'border-[#d16b5a] bg-[#fbe6e1]'
-                    : 'border-bark/10 bg-white/70 hover:border-bark/25 hover:bg-white'
+                    ? 'border-[#d16b5a] bg-[#fbe6e1] dark:bg-[#3a1c1f]'
+                    : 'border-bark/10 bg-surface/70 hover:border-bark/25 hover:bg-surface'
               return (
                 <button
                   key={id}
@@ -284,7 +284,7 @@ function Sorter({ bins, items, className = '', coach = false }) {
               type="button"
               disabled={!solved}
               onClick={advance}
-              className={`ml-auto inline-flex min-h-10 flex-none items-center gap-2 whitespace-nowrap rounded-full bg-bark px-4 text-sm font-bold text-white transition-[background-color,opacity] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600 ${
+              className={`ml-auto inline-flex min-h-10 flex-none items-center gap-2 whitespace-nowrap rounded-full bg-bark px-4 text-sm font-bold text-cream transition-[background-color,opacity] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600 ${
                 solved ? 'opacity-100 enabled:hover:bg-bark/90' : 'cursor-not-allowed opacity-40'
               }`}
             >

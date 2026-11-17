@@ -121,7 +121,7 @@ function InfoModal({ entry, items, onClose, onNavigate }) {
             <div className={`absolute inset-0 ${media.visual}`} aria-hidden="true" />
 
             <div className="relative flex items-center justify-between gap-3 p-4">
-              <span className="glass rounded-full px-3.5 py-1.5 text-xs font-extrabold text-bark">
+              <span className="glass rounded-full px-3.5 py-1.5 text-xs font-extrabold text-bark dark:bg-[#0b0d1c]/80 dark:text-white">
                 {entry.group}
               </span>
               <button
@@ -129,7 +129,7 @@ function InfoModal({ entry, items, onClose, onNavigate }) {
                 type="button"
                 onClick={close}
                 aria-label="Close"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-bark/80 text-white transition hover:bg-bark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-bark/80 text-cream transition hover:bg-bark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cream"
               >
                 <X size={20} />
               </button>
@@ -156,7 +156,7 @@ function InfoModal({ entry, items, onClose, onNavigate }) {
             </div>
 
             <div className="relative flex items-end justify-between gap-3 p-4">
-              <span className="glass rounded-full px-4 py-1.5 text-sm font-bold text-bark">
+              <span className="glass rounded-full px-4 py-1.5 text-sm font-bold text-bark dark:bg-[#0b0d1c]/80 dark:text-white">
                 {media.label}
               </span>
               {mediaCount > 1 && (
@@ -165,7 +165,7 @@ function InfoModal({ entry, items, onClose, onNavigate }) {
                     type="button"
                     onClick={() => stepMedia(-1)}
                     aria-label="Previous image"
-                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/80 text-bark transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bark"
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-surface/80 text-bark transition hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bark"
                   >
                     <ChevronLeft size={18} />
                   </button>
@@ -176,7 +176,7 @@ function InfoModal({ entry, items, onClose, onNavigate }) {
                     type="button"
                     onClick={() => stepMedia(1)}
                     aria-label="Next image"
-                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/80 text-bark transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bark"
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-surface/80 text-bark transition hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bark"
                   >
                     <ChevronRight size={18} />
                   </button>
@@ -195,7 +195,7 @@ function InfoModal({ entry, items, onClose, onNavigate }) {
             {entry.stats?.length > 0 && (
               <dl className="mt-5 grid grid-cols-3 gap-2">
                 {entry.stats.map((stat) => (
-                  <div key={stat.label} className="rounded-2xl bg-white/70 px-3 py-2.5">
+                  <div key={stat.label} className="rounded-2xl bg-surface/70 px-3 py-2.5">
                     <dt className="text-xs font-bold text-bark/60">{stat.label}</dt>
                     <dd className="mt-0.5 text-sm font-extrabold leading-snug">{stat.value}</dd>
                   </div>
@@ -246,7 +246,7 @@ function InfoModal({ entry, items, onClose, onNavigate }) {
             ))}
 
             {entry.didYouKnow && (
-              <p className="mt-6 rounded-2xl border border-white/70 bg-white/70 p-4 leading-relaxed">
+              <p className="mt-6 rounded-2xl border border-hairline/70 bg-surface/70 p-4 leading-relaxed">
                 <span className="font-extrabold text-leaf-700">Did you know? </span>
                 {entry.didYouKnow}
               </p>

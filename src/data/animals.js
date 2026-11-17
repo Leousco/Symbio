@@ -29,14 +29,14 @@ export const animals = [
     group: 'Mammals',
     superpower: 'A howl that carries for kilometres',
     icon: PawPrint,
-    visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-bark',
+    visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-ink',
     stats: [
       { label: 'Length', value: '1–1.6 m' },
       { label: 'Pack', value: '6–10 wolves' },
       { label: 'Diet', value: 'Carnivore' },
     ],
     media: [
-      { label: 'The pack', icon: PawPrint, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-bark' },
+      { label: 'The pack', icon: PawPrint, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-ink' },
       { label: 'The howl', icon: Wind, visual: 'bg-linear-to-br from-[#e6f4f8] to-ocean-500 text-white' },
       { label: 'Winter coat', icon: Snowflake, visual: 'bg-linear-to-br from-ocean-100 to-ocean-600 text-white' },
     ],
@@ -64,7 +64,7 @@ export const animals = [
     ],
     media: [
       { label: 'The huddle', icon: Bird, visual: 'bg-linear-to-br from-ocean-100 to-ocean-600 text-white' },
-      { label: 'The ice', icon: Snowflake, visual: 'bg-linear-to-br from-white to-ocean-100 text-ocean-600' },
+      { label: 'The ice', icon: Snowflake, visual: 'bg-linear-to-br from-white to-ocean-100 text-ocean-600 dark:from-[#101a2e]' },
       { label: 'The dive', icon: Waves, visual: 'bg-linear-to-br from-[#cfeaf5] to-ocean-600 text-white' },
     ],
     intro:
@@ -83,16 +83,16 @@ export const animals = [
     group: 'Insects',
     superpower: 'Navigates 4,000 km without a map',
     icon: Bug,
-    visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-bark',
+    visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-ink',
     stats: [
       { label: 'Wingspan', value: 'About 10 cm' },
       { label: 'Journey', value: 'Up to 4,000 km' },
       { label: 'Diet', value: 'Nectar' },
     ],
     media: [
-      { label: 'The journey', icon: MapPin, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-bark' },
+      { label: 'The journey', icon: MapPin, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-ink' },
       { label: 'Milkweed', icon: Leaf, visual: 'bg-linear-to-br from-leaf-100 to-leaf-600 text-white' },
-      { label: 'Wings', icon: Feather, visual: 'bg-linear-to-br from-[#ffe6c7] to-sun-500 text-bark' },
+      { label: 'Wings', icon: Feather, visual: 'bg-linear-to-br from-[#ffe6c7] to-sun-500 text-ink' },
     ],
     intro:
       'Every autumn, monarchs across North America fly south to the same mountain forests in Mexico — places most of them have never seen.',
@@ -146,7 +146,7 @@ export const animals = [
     media: [
       { label: 'The arms', icon: Shell, visual: 'bg-linear-to-br from-[#f3c6c6] to-[#b1564e] text-white' },
       { label: 'Blue blood', icon: Droplets, visual: 'bg-linear-to-br from-ocean-100 to-ocean-600 text-white' },
-      { label: 'Camouflage', icon: Sparkles, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-bark' },
+      { label: 'Camouflage', icon: Sparkles, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-ink' },
     ],
     intro:
       'An octopus has no bones, so it can squeeze through a hole the size of its eye. It can also change colour and texture in less than a second.',
@@ -164,15 +164,15 @@ export const animals = [
     group: 'Mammals',
     superpower: 'Hears insects moving under the sand',
     icon: PawPrint,
-    visual: 'bg-linear-to-br from-sun-100 to-sun-500 text-bark',
+    visual: 'bg-linear-to-br from-sun-100 to-sun-500 text-ink',
     stats: [
       { label: 'Ears', value: '15 cm long' },
       { label: 'Weight', value: '1.5 kg' },
       { label: 'Diet', value: 'Insects and small animals' },
     ],
     media: [
-      { label: 'The ears', icon: Thermometer, visual: 'bg-linear-to-br from-sun-100 to-sun-500 text-bark' },
-      { label: 'The desert', icon: Sun, visual: 'bg-linear-to-br from-[#ffe6b8] to-[#e08a3c] text-bark' },
+      { label: 'The ears', icon: Thermometer, visual: 'bg-linear-to-br from-sun-100 to-sun-500 text-ink' },
+      { label: 'The desert', icon: Sun, visual: 'bg-linear-to-br from-[#ffe6b8] to-[#e08a3c] text-ink' },
       { label: 'Night hunt', icon: Moon, visual: 'bg-linear-to-br from-[#d9d9f3] to-[#4a4a8c] text-white' },
     ],
     intro:
@@ -191,15 +191,15 @@ export const animals = [
     group: 'Insects',
     superpower: 'Dances to give directions',
     icon: Bug,
-    visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-bark',
+    visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-ink',
     stats: [
       { label: 'Wings', value: '4' },
       { label: 'Hive', value: 'Up to 50,000' },
       { label: 'Diet', value: 'Nectar and pollen' },
     ],
     media: [
-      { label: 'Waggle dance', icon: Bug, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-bark' },
-      { label: 'The hive', icon: Home, visual: 'bg-linear-to-br from-[#ffe6b8] to-sun-500 text-bark' },
+      { label: 'Waggle dance', icon: Bug, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-ink' },
+      { label: 'The hive', icon: Home, visual: 'bg-linear-to-br from-[#ffe6b8] to-sun-500 text-ink' },
       { label: 'Pollination', icon: Leaf, visual: 'bg-linear-to-br from-leaf-100 to-leaf-600 text-white' },
     ],
     intro:
@@ -225,7 +225,7 @@ export const animals = [
       { label: 'Diet', value: 'Jellyfish and seagrass' },
     ],
     media: [
-      { label: 'The beach', icon: MapPin, visual: 'bg-linear-to-br from-sun-100 to-sun-500 text-bark' },
+      { label: 'The beach', icon: MapPin, visual: 'bg-linear-to-br from-sun-100 to-sun-500 text-ink' },
       { label: 'The ocean', icon: Waves, visual: 'bg-linear-to-br from-ocean-100 to-ocean-600 text-white' },
       { label: 'The shell', icon: Shell, visual: 'bg-linear-to-br from-[#e3d3b5] to-[#a98a5c] text-white' },
     ],
@@ -253,8 +253,8 @@ export const animals = [
     ],
     media: [
       { label: 'The mountains', icon: Mountain, visual: 'bg-linear-to-br from-[#dfe8ee] to-[#7d93a6] text-white' },
-      { label: 'The tail', icon: Wind, visual: 'bg-linear-to-br from-white to-ocean-100 text-ocean-600' },
-      { label: 'The jump', icon: Sparkles, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-bark' },
+      { label: 'The tail', icon: Wind, visual: 'bg-linear-to-br from-white to-ocean-100 text-ocean-600 dark:from-[#101a2e]' },
+      { label: 'The jump', icon: Sparkles, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-ink' },
     ],
     intro:
       'Snow leopards live high in the mountains of Central Asia, where the air is thin and the rocks are steep. They are rarely seen, even by the people who study them.',
@@ -279,8 +279,8 @@ export const animals = [
       { label: 'Diet', value: 'Insects' },
     ],
     media: [
-      { label: 'The freeze', icon: Snowflake, visual: 'bg-linear-to-br from-white to-ocean-100 text-ocean-600' },
-      { label: 'The thaw', icon: Sun, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-bark' },
+      { label: 'The freeze', icon: Snowflake, visual: 'bg-linear-to-br from-white to-ocean-100 text-ocean-600 dark:from-[#101a2e]' },
+      { label: 'The thaw', icon: Sun, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-ink' },
       { label: 'The pond', icon: Droplets, visual: 'bg-linear-to-br from-leaf-100 to-leaf-600 text-white' },
     ],
     intro:
@@ -301,9 +301,10 @@ export const habitats = [
     id: 'arctic',
     label: 'Arctic',
     icon: Snowflake,
-    scene: 'bg-linear-to-br from-white via-ocean-100 to-[#cfeaf5]',
-    chip: 'bg-ocean-600 text-white',
-    card: 'border-ocean-600/25 bg-white/85 hover:border-ocean-600/55 hover:bg-white',
+    scene:
+      'bg-linear-to-br from-white via-ocean-100 to-[#cfeaf5] dark:from-[#12253a] dark:via-[#182b3f] dark:to-[#1f4b63]',
+    chip: 'bg-ocean-600 text-cream',
+    card: 'border-ocean-600/25 bg-surface/85 hover:border-ocean-600/55 hover:bg-surface',
     creatureIcon: 'bg-ocean-100 text-ocean-600',
     option:
       'border-ocean-600/35 bg-ocean-100/45 hover:border-ocean-600/65 hover:bg-ocean-100/80',
@@ -336,10 +337,11 @@ export const habitats = [
     id: 'desert',
     label: 'Desert',
     icon: Sun,
-    scene: 'bg-linear-to-br from-[#fff4d6] via-sun-100 to-[#f2c078]',
-    chip: 'bg-sun-500 text-bark',
-    card: 'border-sun-500/40 bg-white/85 hover:border-sun-500/80 hover:bg-white',
-    creatureIcon: 'bg-sun-100 text-[#8a6d1f]',
+    scene:
+      'bg-linear-to-br from-[#fff4d6] via-sun-100 to-[#f2c078] dark:from-[#3a2c12] dark:via-[#4a3413] dark:to-[#6b4a18]',
+    chip: 'bg-sun-500 text-ink',
+    card: 'border-sun-500/40 bg-surface/85 hover:border-sun-500/80 hover:bg-surface',
+    creatureIcon: 'bg-sun-100 text-[#8a6d1f] dark:text-sun-400',
     option:
       'border-sun-500/55 bg-sun-100/55 hover:border-sun-500 hover:bg-sun-100',
     blurb: 'Hot days, cold nights, and very little water.',
@@ -371,9 +373,10 @@ export const habitats = [
     id: 'rainforest',
     label: 'Rainforest',
     icon: Leaf,
-    scene: 'bg-linear-to-br from-leaf-100 via-[#dcf1dc] to-[#8fc98f]',
-    chip: 'bg-leaf-600 text-white',
-    card: 'border-leaf-600/25 bg-white/85 hover:border-leaf-600/55 hover:bg-white',
+    scene:
+      'bg-linear-to-br from-leaf-100 via-[#dcf1dc] to-[#8fc98f] dark:from-[#10281a] dark:via-[#143021] dark:to-[#1c4a2c]',
+    chip: 'bg-leaf-600 text-cream',
+    card: 'border-leaf-600/25 bg-surface/85 hover:border-leaf-600/55 hover:bg-surface',
     creatureIcon: 'bg-leaf-100 text-leaf-700',
     option:
       'border-leaf-600/35 bg-leaf-100/55 hover:border-leaf-600/70 hover:bg-leaf-100',
@@ -406,9 +409,10 @@ export const habitats = [
     id: 'ocean',
     label: 'Ocean',
     icon: Waves,
-    scene: 'bg-linear-to-br from-[#cfeaf5] via-ocean-100 to-ocean-600',
-    chip: 'bg-ocean-600 text-white',
-    card: 'border-ocean-600/30 bg-white/85 hover:border-ocean-600/60 hover:bg-white',
+    scene:
+      'bg-linear-to-br from-[#cfeaf5] via-ocean-100 to-ocean-600 dark:from-[#102a38] dark:via-[#182b47] dark:to-[#2a3a6b]',
+    chip: 'bg-ocean-600 text-cream',
+    card: 'border-ocean-600/30 bg-surface/85 hover:border-ocean-600/60 hover:bg-surface',
     creatureIcon: 'bg-ocean-100 text-ocean-600',
     option:
       'border-ocean-600/40 bg-ocean-100/50 hover:border-ocean-600/70 hover:bg-ocean-100',

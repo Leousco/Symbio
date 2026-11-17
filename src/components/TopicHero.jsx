@@ -31,7 +31,7 @@ function TopicHero({
         <div className="flex flex-wrap gap-3">
           <a
             href="#guide"
-            className="group inline-flex min-h-12 items-center gap-2 rounded-full bg-bark px-6 font-bold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-bark/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
+            className="group inline-flex min-h-12 items-center gap-2 rounded-full bg-bark px-6 font-bold text-cream shadow-lg transition hover:-translate-y-0.5 hover:bg-bark/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
           >
             {primaryLabel}
             <ArrowDown size={18} className="transition group-hover:translate-y-0.5" />
@@ -39,7 +39,7 @@ function TopicHero({
           {secondaryLabel && (
             <a
               href={secondaryHref}
-              className="inline-flex min-h-12 items-center rounded-full border border-bark/20 bg-white/60 px-6 font-bold transition hover:bg-white/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
+              className="inline-flex min-h-12 items-center rounded-full border border-bark/20 bg-surface/60 px-6 font-bold transition hover:bg-surface/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
             >
               {secondaryLabel}
             </a>
@@ -59,7 +59,7 @@ function TopicHero({
             key={label}
             className={`glass absolute ${chipPositions[i % chipPositions.length]} flex items-center gap-2 rounded-full py-2 pl-2 pr-4 text-sm font-bold`}
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-bark">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-surface/80 text-bark dark:bg-[#0b0d1c]/80 dark:text-white">
               <ChipIcon size={16} />
             </span>
             {label}

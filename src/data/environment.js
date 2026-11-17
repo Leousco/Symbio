@@ -25,7 +25,7 @@ import {
 // ---------------------------------------------------------------- home teaser
 export const teaserBins = [
   { id: 'plastic', label: 'Plastic', icon: Recycle, tone: 'bg-ocean-100 text-ocean-600' },
-  { id: 'paper', label: 'Paper', icon: FileText, tone: 'bg-sun-100 text-[#8a6d1f]' },
+  { id: 'paper', label: 'Paper', icon: FileText, tone: 'bg-sun-100 text-[#8a6d1f] dark:text-sun-400' },
   { id: 'organic', label: 'Organic', icon: Leaf, tone: 'bg-leaf-100 text-leaf-700' },
 ]
 
@@ -92,7 +92,7 @@ export const sorterBins = [
   { id: 'recycle', label: 'Recycle', icon: Recycle, tone: 'bg-ocean-100 text-ocean-600' },
   { id: 'compost', label: 'Compost', icon: Leaf, tone: 'bg-leaf-100 text-leaf-700' },
   { id: 'landfill', label: 'Landfill', icon: Trash2, tone: 'bg-bark/10 text-bark/70' },
-  { id: 'hazardous', label: 'Hazardous', icon: BatteryWarning, tone: 'bg-[#fbe6e1] text-[#a8412f]' },
+  { id: 'hazardous', label: 'Hazardous', icon: BatteryWarning, tone: 'bg-[#fbe6e1] text-[#a8412f] dark:bg-[#3a1c1f] dark:text-[#fca5a5]' },
 ]
 
 export const sorterItems = [
@@ -189,7 +189,7 @@ export const environmentEntries = [
     media: [
       { label: 'The loop', icon: Recycle, visual: 'bg-linear-to-br from-ocean-100 to-ocean-600 text-white' },
       { label: 'Your bin', icon: Package, visual: 'bg-linear-to-br from-leaf-100 to-leaf-600 text-white' },
-      { label: 'New product', icon: ShieldCheck, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-bark' },
+      { label: 'New product', icon: ShieldCheck, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-ink' },
     ],
     sections: [
       {
@@ -225,7 +225,7 @@ export const environmentEntries = [
       { label: 'Keeps out', value: 'Methane' },
     ],
     media: [
-      { label: 'Food scraps', icon: Banana, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-bark' },
+      { label: 'Food scraps', icon: Banana, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-ink' },
       { label: 'The heap', icon: Leaf, visual: 'bg-linear-to-br from-leaf-100 to-leaf-600 text-white' },
       { label: 'New soil', icon: Earth, visual: 'bg-linear-to-br from-[#e3d3b5] to-[#a98a5c] text-white' },
     ],
@@ -294,14 +294,14 @@ export const environmentEntries = [
     group: 'Home',
     superpower: 'Every switch has a power station behind it',
     icon: Zap,
-    visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-bark',
+    visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-ink',
     stats: [
       { label: 'Biggest use', value: 'Heating' },
       { label: 'Wasteful', value: 'Standby mode' },
       { label: 'Cleanest', value: 'Using less' },
     ],
     media: [
-      { label: 'The grid', icon: Zap, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-bark' },
+      { label: 'The grid', icon: Zap, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-ink' },
       { label: 'Standby', icon: Box, visual: 'bg-linear-to-br from-ocean-100 to-ocean-600 text-white' },
       { label: 'Your choice', icon: ShieldCheck, visual: 'bg-linear-to-br from-leaf-100 to-leaf-600 text-white' },
     ],
@@ -340,7 +340,7 @@ export const environmentEntries = [
     ],
     media: [
       { label: 'The sky', icon: Wind, visual: 'bg-linear-to-br from-[#e6f4f8] to-ocean-500 text-white' },
-      { label: 'Traffic', icon: Box, visual: 'bg-linear-to-br from-bark/20 to-bark/60 text-white' },
+      { label: 'Traffic', icon: Box, visual: 'bg-linear-to-br from-bark/20 to-bark/60 text-cream' },
       { label: 'Trees', icon: Trees, visual: 'bg-linear-to-br from-leaf-100 to-leaf-600 text-white' },
     ],
     sections: [
@@ -379,7 +379,7 @@ export const environmentEntries = [
     media: [
       { label: 'Rivers', icon: Droplets, visual: 'bg-linear-to-br from-ocean-100 to-ocean-600 text-white' },
       { label: 'The ocean', icon: Waves, visual: 'bg-linear-to-br from-[#cfeaf5] to-ocean-600 text-white' },
-      { label: 'Microplastics', icon: Package, visual: 'bg-linear-to-br from-white to-ocean-100 text-ocean-600' },
+      { label: 'Microplastics', icon: Package, visual: 'bg-linear-to-br from-white to-ocean-100 text-ocean-600 dark:from-[#101a2e]' },
     ],
     sections: [
       {
@@ -415,7 +415,7 @@ export const environmentEntries = [
       { label: 'Gives us', value: 'Food and medicine' },
     ],
     media: [
-      { label: 'Many species', icon: Bug, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-bark' },
+      { label: 'Many species', icon: Bug, visual: 'bg-linear-to-br from-sun-100 to-sun-400 text-ink' },
       { label: 'Habitats', icon: Trees, visual: 'bg-linear-to-br from-leaf-100 to-leaf-600 text-white' },
       { label: 'Resilience', icon: ShieldCheck, visual: 'bg-linear-to-br from-ocean-100 to-ocean-600 text-white' },
     ],
@@ -446,14 +446,14 @@ export const environmentEntries = [
     group: 'Land',
     superpower: 'Buried is not the same as gone',
     icon: Trash2,
-    visual: 'bg-linear-to-br from-bark/30 to-bark/80 text-white',
+    visual: 'bg-linear-to-br from-bark/30 to-bark/80 text-cream',
     stats: [
       { label: 'Holds', value: 'Household rubbish' },
       { label: 'Produces', value: 'Methane' },
       { label: 'Lasts', value: 'Decades' },
     ],
     media: [
-      { label: 'The bin', icon: Trash2, visual: 'bg-linear-to-br from-bark/30 to-bark/80 text-white' },
+      { label: 'The bin', icon: Trash2, visual: 'bg-linear-to-br from-bark/30 to-bark/80 text-cream' },
       { label: 'The site', icon: Box, visual: 'bg-linear-to-br from-[#d8ceb8] to-[#8a7a5e] text-white' },
       { label: 'Better options', icon: Recycle, visual: 'bg-linear-to-br from-leaf-100 to-leaf-600 text-white' },
     ],

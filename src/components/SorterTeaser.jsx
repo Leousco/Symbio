@@ -24,7 +24,7 @@ function SorterTeaser() {
         </div>
         <Link
           to="/environment#activity"
-          className="group inline-flex min-h-11 items-center gap-2 rounded-full border border-bark/20 bg-white/60 px-5 text-sm font-bold transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
+          className="group inline-flex min-h-11 items-center gap-2 rounded-full border border-bark/20 bg-surface/60 px-5 text-sm font-bold transition-colors hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
         >
           Open the full sorter
           <ArrowRight size={16} className="transition group-hover:translate-x-0.5" />

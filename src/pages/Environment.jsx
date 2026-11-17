@@ -21,7 +21,7 @@ function Environment() {
         highlightClass="text-ocean-600"
         description="A bottle dropped on land can end up in a fish. Sort the waste, meet the ideas behind it, and find the small choices that add up."
         icon={Earth}
-        orb="bg-linear-to-br from-ocean-100 via-ocean-500 to-ocean-600"
+        orb="bg-linear-to-br from-ocean-100 via-ocean-500 to-ocean-600 dark:from-[#1b1740] dark:via-[#5b49b8] dark:to-[#6d4ad6]"
         chips={[
           { icon: Recycle, label: '12 things to sort' },
           { icon: Waves, label: 'Land to sea' },
@@ -37,7 +37,7 @@ function Environment() {
         description="Eight concepts, from composting to biodiversity. Tap a card for what it is and what you can do."
         items={environmentEntries}
         groups={environmentGroups}
-        accentClass="bg-ocean-600 text-white"
+        accentClass="bg-ocean-600 text-cream"
       />
 
       {article && (
@@ -51,7 +51,7 @@ function Environment() {
         title={environmentQuiz.title}
         description={environmentQuiz.description}
         questions={environmentQuiz.questions}
-        accentClass="bg-ocean-600 text-white"
+        accentClass="bg-ocean-600 text-cream"
       />
 
       <NextTopic
@@ -59,7 +59,7 @@ function Environment() {
         title="Animals"
         text="Every habitat we protect is a home for something. Meet the creatures that live in them."
         icon={PawPrint}
-        visual="bg-sun-500 text-bark"
+        visual="bg-sun-500 text-ink"
       />
     </div>
   )

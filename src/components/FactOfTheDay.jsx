@@ -25,7 +25,7 @@ function FactOfTheDay() {
     <button
       type="button"
       onClick={showAnother}
-      className="inline-flex min-h-11 flex-none items-center gap-2 rounded-full border border-bark/20 bg-white/70 px-4 text-sm font-bold transition-colors hover:border-bark/30 hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600 sm:min-h-12 sm:px-5 sm:text-base"
+      className="inline-flex min-h-11 flex-none items-center gap-2 rounded-full border border-bark/20 bg-surface/70 px-4 text-sm font-bold transition-colors hover:border-bark/30 hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600 sm:min-h-12 sm:px-5 sm:text-base"
     >
       <RefreshCw size={18} />
       Show me another
@@ -41,14 +41,14 @@ function FactOfTheDay() {
     >
       {/* Mobile: icon and shuffle share the top row so the text slot stays put */}
       <div className="flex items-center justify-between gap-3 md:hidden">
-        <span className="flex h-12 w-12 flex-none items-center justify-center rounded-2xl bg-sun-400 text-bark">
+        <span className="flex h-12 w-12 flex-none items-center justify-center rounded-2xl bg-sun-400 text-ink">
           <Lightbulb size={24} />
         </span>
         {shuffle}
       </div>
 
       <div className="mt-4 flex items-center gap-6 md:mt-0">
-        <span className="hidden h-16 w-16 flex-none items-center justify-center rounded-3xl bg-sun-400 text-bark md:flex">
+        <span className="hidden h-16 w-16 flex-none items-center justify-center rounded-3xl bg-sun-400 text-ink md:flex">
           <Lightbulb size={32} />
         </span>
 
