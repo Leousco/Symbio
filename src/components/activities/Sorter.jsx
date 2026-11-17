@@ -1,19 +1,21 @@
-import { useState } from 'react'
-import { ArrowRight, Check } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { ArrowRight, Check, RotateCcw } from 'lucide-react'
 
 // The sorting engine, shared by the home teaser and the Environment page.
-// The station keeps one fixed height: on desktop the object card fills the
-// right half while the choices, feedback and action sit on the left. Reserving
-// the feedback area means answering never moves the page.
+// The station keeps one fixed height while you play: on desktop the object
+// card fills the right half while the choices, feedback and action sit on the
+// left. Reserving the feedback area means answering never moves the page.
 //
 // bins:  [{ id, label, icon, tone }]
-// items: [{ name, bin, icon, tip, photo?, alt? }]  — a photo replaces the icon slot
+// items: [{ name, bin, icon, tip, photo?, alt?, focus? }] — a photo replaces the
+// icon slot; `focus` sets the CSS object-position for cropping the photo.
 function Sorter({ bins, items, className = '' }) {
   const [index, setIndex] = useState(0)
   const [solvedBin, setSolvedBin] = useState(null)
   const [wrongBin, setWrongBin] = useState(null)
   const [missed, setMissed] = useState(false)
   const [score, setScore] = useState(0)
+  const [missedItems, setMissedItems] = useState([])
 
   const item = items[index]
   const solved = solvedBin === item.bin
@@ -22,18 +24,15 @@ function Sorter({ bins, items, className = '' }) {
   const ItemIcon = item.icon
 
   const progress = (index + (solved ? 1 : 0)) / items.length
-  const feedback = finished
-    ? `Done. You got ${score} of ${items.length} on the first try.`
-    : solved
-      ? `Correct. ${item.tip}`
-      : missed
-        ? 'Not quite. Try another bin.'
-        : 'Pick the bin you think it belongs in.'
-  const hint = finished
-    ? ''
-    : solved
-      ? 'Next one when you are ready.'
-      : 'First-try answers score a point.'
+
+  // Load every photo for this set once, so changing items never flashes empty.
+  useEffect(() => {
+    items.forEach(({ photo }) => {
+      if (!photo) return
+      const img = new Image()
+      img.src = photo
+    })
+  }, [items])
 
   const pick = (binId) => {
     if (solved) return
@@ -44,6 +43,7 @@ function Sorter({ bins, items, className = '' }) {
     } else {
       setWrongBin(binId)
       setMissed(true)
+      setMissedItems((list) => (list.includes(item.name) ? list : [...list, item.name]))
       window.setTimeout(() => {
         setWrongBin((current) => (current === binId ? null : current))
       }, 550)
@@ -56,19 +56,64 @@ function Sorter({ bins, items, className = '' }) {
     setWrongBin(null)
     setMissed(false)
     setScore(0)
+    setMissedItems([])
   }
 
   const advance = () => {
     if (!solved) return
-    if (finished) {
-      reset()
-      return
-    }
     setIndex((current) => current + 1)
     setSolvedBin(null)
     setWrongBin(null)
     setMissed(false)
   }
+
+  if (finished) {
+    const perfect = score === items.length
+    return (
+      <div className={className}>
+        <div
+          role="status"
+          className="flex animate-pop flex-col items-center justify-center rounded-3xl border border-white/80 bg-white/60 px-6 py-12 text-center motion-reduce:animate-none md:py-16"
+        >
+          <span
+            className={`flex h-14 w-14 items-center justify-center rounded-full ${
+              perfect ? 'bg-leaf-100 text-leaf-700' : 'bg-sun-100 text-[#8a6d1f]'
+            }`}
+            aria-hidden="true"
+          >
+            <Check size={30} strokeWidth={2.5} />
+          </span>
+
+          <p className="mt-5 font-heading text-5xl font-semibold tabular-nums">
+            {score} of {items.length}
+          </p>
+          <p className="mt-1 font-bold text-bark/70">sorted right on the first try</p>
+
+          <p className="mt-4 max-w-sm leading-relaxed text-bark/80">
+            {perfect
+              ? 'Every item went in the right bin without a second guess.'
+              : `Good run. ${missedItems.length === 1 ? 'One item needed' : `${missedItems.length} items needed`} a second look: ${missedItems.join(', ')}.`}
+          </p>
+
+          <button
+            type="button"
+            onClick={reset}
+            className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full bg-bark px-5 font-bold text-white transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-bark/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
+          >
+            <RotateCcw size={18} />
+            Play again
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  const feedback = solved
+    ? `Correct. ${item.tip}`
+    : missed
+      ? 'Not quite. Try another bin.'
+      : 'Pick the bin you think it belongs in.'
+  const hint = solved ? 'Next one when you are ready.' : 'First-try answers score a point.'
 
   return (
     <div className={className}>
@@ -86,11 +131,13 @@ function Sorter({ bins, items, className = '' }) {
             key={item.name}
             className="mt-3 flex min-h-0 flex-1 animate-pop flex-col motion-reduce:animate-none"
           >
-            <div className="flex aspect-[16/9] items-center justify-center overflow-hidden rounded-2xl bg-linear-to-br from-[#eaf2e6] to-[#dfe9d9] ring-1 ring-inset ring-bark/5 md:aspect-auto md:min-h-0 md:flex-1">
+            <div className="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl bg-linear-to-br from-[#eaf2e6] to-[#dfe9d9] ring-1 ring-inset ring-bark/5">
               {item.photo ? (
                 <img
                   src={item.photo}
                   alt={item.alt ?? item.name}
+                  decoding="async"
+                  style={{ objectPosition: item.focus ?? 'center' }}
                   className="h-full w-full object-cover"
                 />
               ) : (
@@ -178,7 +225,7 @@ function Sorter({ bins, items, className = '' }) {
                 solved ? 'opacity-100 enabled:hover:bg-bark/90' : 'cursor-not-allowed opacity-40'
               }`}
             >
-              {finished ? 'Play again' : 'Next item'}
+              Next item
               <ArrowRight size={16} />
             </button>
           </div>

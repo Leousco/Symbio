@@ -66,6 +66,15 @@
   }
 }
 
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 @keyframes modal-in {
   from {
     opacity: 0;
