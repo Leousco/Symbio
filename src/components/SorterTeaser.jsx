@@ -31,7 +31,7 @@ function SorterTeaser() {
         </Link>
       </div>
 
-      <Sorter bins={teaserBins} items={teaserItems} className="mt-6" />
+      <Sorter bins={teaserBins} items={teaserItems} className="mt-6" coach />
     </GlassCard>
   )
 }

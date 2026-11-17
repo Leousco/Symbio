@@ -57,6 +57,30 @@ export const facts = [
     text: 'Wood frogs can freeze solid in winter and thaw out alive in spring.',
   },
   {
+    topic: 'Animals',
+    text: "A hummingbird's heart can beat more than 1,000 times a minute.",
+  },
+  {
+    topic: 'Animals',
+    text: 'Elephants can recognise themselves in a mirror.',
+  },
+  {
+    topic: 'Animals',
+    text: 'Dolphins call to each other using signature whistles, almost like names.',
+  },
+  {
+    topic: 'Animals',
+    text: 'Tardigrades can survive being frozen, dried out, and even the vacuum of space.',
+  },
+  {
+    topic: 'Animals',
+    text: "A chameleon's tongue can shoot out twice as far as its body is long.",
+  },
+  {
+    topic: 'Animals',
+    text: 'Crows can recognise and remember human faces for years.',
+  },
+  {
     topic: 'Plants',
     text: 'Plants make their own food using sunlight, water, and air.',
   },
@@ -65,12 +89,60 @@ export const facts = [
     text: 'Plants release oxygen into the air as they make their food.',
   },
   {
+    topic: 'Plants',
+    text: 'Bamboo can grow almost a metre in a single day.',
+  },
+  {
+    topic: 'Plants',
+    text: 'A sunflower head is made of thousands of tiny flowers packed together.',
+  },
+  {
+    topic: 'Plants',
+    text: 'Some seeds can wait decades in the soil before they sprout.',
+  },
+  {
+    topic: 'Plants',
+    text: "The world's largest flower smells like rotting meat to attract flies.",
+  },
+  {
+    topic: 'Plants',
+    text: 'Trees share water and nutrients through fungal networks in the soil.',
+  },
+  {
+    topic: 'Plants',
+    text: 'Cactus spines are really leaves, shaped to save water.',
+  },
+  {
     topic: 'Environment',
     text: 'Glass can be recycled again and again without losing quality.',
   },
   {
     topic: 'Environment',
     text: 'Banana peels and other food scraps can be composted into rich soil.',
+  },
+  {
+    topic: 'Environment',
+    text: 'An aluminium can be recycled and back on a shelf in about two months.',
+  },
+  {
+    topic: 'Environment',
+    text: 'Millions of tonnes of plastic reach the ocean every year.',
+  },
+  {
+    topic: 'Environment',
+    text: 'A dripping tap can waste thousands of litres of water a year.',
+  },
+  {
+    topic: 'Environment',
+    text: 'Food buried in landfill releases methane as it rots.',
+  },
+  {
+    topic: 'Environment',
+    text: 'Paper can usually be recycled about five times before its fibres wear out.',
+  },
+  {
+    topic: 'Environment',
+    text: 'It can take thousands of litres of water to grow cotton for one T-shirt.',
   },
 ]
 

@@ -31,6 +31,8 @@ export const teaserBins = [
 
 // Each item renders in a fixed image slot. Add `photo: '/images/name.jpg'`
 // (plus an optional `alt`) to show a real photo; without one the icon is used.
+// `think` and `hint` drive the coach card in the home teaser; `tip` is the fact
+// shown once the item is sorted.
 export const teaserItems = [
   {
     name: 'Plastic bottle',
@@ -38,7 +40,9 @@ export const teaserItems = [
     icon: Package,
     photo: '/images/home/slides/activity-plastic-bottle.jpg',
     alt: 'A pile of empty plastic bottles',
-    tip: 'Empty bottles can be recycled into new plastic products.',
+    think: 'Ask what it is made of. This one was moulded from a single material, and that material can be melted down again.',
+    hint: 'It is not paper and not food. Which bin takes something that can be melted and remade?',
+    tip: 'Most drink bottles are PET plastic, which can be melted down and made into new bottles or fleece.',
   },
   {
     name: 'Newspaper',
@@ -46,7 +50,9 @@ export const teaserItems = [
     icon: FileText,
     photo: '/images/home/slides/activity-newspaper.jpg',
     alt: 'A stack of folded newspapers',
-    tip: 'Paper is turned back into pulp and made into new paper.',
+    think: 'Think about how it would break apart. It tears easily, soaks up water, and started life as plant fibre.',
+    hint: 'It turns to mush when it gets wet. Which bin takes things that can be pulped?',
+    tip: 'Newsprint is mostly wood fibre, so it can be pulped and pressed into new paper.',
   },
   {
     name: 'Banana peel',
@@ -54,7 +60,9 @@ export const teaserItems = [
     icon: Banana,
     photo: '/images/home/slides/activity-banana-peel.jpg',
     alt: 'A banana peel on a green surface',
-    tip: 'Food scraps break down into compost that feeds soil.',
+    think: 'Ask whether it was ever alive. This one will rot on its own, and one bin is built for exactly that.',
+    hint: 'It is food, not packaging. Which bin is for scraps that break down?',
+    tip: 'A banana peel breaks down in weeks and feeds the soil as compost.',
   },
   {
     name: 'Cardboard box',
@@ -63,7 +71,9 @@ export const teaserItems = [
     photo: '/images/home/slides/activity-cardboard-box.jpg',
     alt: 'Flattened cardboard boxes stacked against a wall',
     focus: 'center 78%',
-    tip: 'Flattened cardboard is recycled into new boxes.',
+    think: 'Squash it in your mind. It folds, creases and tears into fibres, which puts it in the paper family.',
+    hint: 'It is the same family as a cereal box. Which bin takes paper products?',
+    tip: 'Cardboard is layers of paper fibre pressed together, so it can be recycled into new boxes.',
   },
   {
     name: 'Apple core',
@@ -71,7 +81,9 @@ export const teaserItems = [
     icon: Apple,
     photo: '/images/home/slides/activity-apple-core.jpg',
     alt: 'An eaten apple core on a white surface',
-    tip: 'Fruit scraps can be composted instead of thrown away.',
+    think: 'It came from a plant and will break down quickly. Ask which bin handles things that rot.',
+    hint: 'This is food, not packaging. Which bin takes kitchen scraps?',
+    tip: 'An apple core is food waste, and food waste becomes compost in a few months.',
   },
 ]
 

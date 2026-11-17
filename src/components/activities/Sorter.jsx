@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ArrowRight, Check, RotateCcw } from 'lucide-react'
+import { ArrowRight, Check, Lightbulb, RotateCcw } from 'lucide-react'
 
 // The sorting engine, shared by the home teaser and the Environment page.
 // The station keeps one fixed height while you play: on desktop the object
@@ -9,7 +9,58 @@ import { ArrowRight, Check, RotateCcw } from 'lucide-react'
 // bins:  [{ id, label, icon, tone }]
 // items: [{ name, bin, icon, tip, photo?, alt?, focus? }] — a photo replaces the
 // icon slot; `focus` sets the CSS object-position for cropping the photo.
-function Sorter({ bins, items, className = '' }) {
+// fisher-yates: returns a new array, so the source data is never mutated.
+function shuffle(list) {
+  const copy = [...list]
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[copy[i], copy[j]] = [copy[j], copy[i]]
+  }
+  return copy
+}
+
+// The coach card under the bins: how to think before answering, a nudge after a
+// wrong pick, and a fact once the item is sorted. Home teaser only for now.
+function CoachNote({ item, solved, missed }) {
+  const isFact = solved
+  const label = isFact ? 'Did you know?' : missed ? 'A hint' : 'How to decide'
+  const text = isFact ? item.tip : missed ? item.hint : item.think
+
+  if (!text) return null
+
+  return (
+    <div
+      aria-live="polite"
+      className={`mt-4 flex h-[170px] items-center gap-3 overflow-hidden rounded-2xl border p-3.5 transition-colors min-[360px]:h-[146px] min-[430px]:h-[122px] sm:h-[98px] md:h-[146px] lg:h-[98px] ${
+        isFact ? 'border-leaf-600/30 bg-leaf-50' : 'border-bark/10 bg-white/70'
+      }`}
+    >
+      <span
+        className={`flex h-9 w-9 flex-none items-center justify-center rounded-full ${
+          isFact ? 'bg-leaf-100 text-leaf-700' : 'bg-sun-100 text-[#8a6d1f]'
+        }`}
+        aria-hidden="true"
+      >
+        <Lightbulb size={18} />
+      </span>
+
+      <div className="min-w-0">
+        <p className={`text-sm font-extrabold ${isFact ? 'text-leaf-700' : 'text-bark/60'}`}>
+          {label}
+        </p>
+        <p
+          key={text}
+          className="mt-0.5 line-clamp-5 animate-fade-in text-sm leading-6 text-bark/80 motion-reduce:animate-none min-[360px]:line-clamp-4 min-[430px]:line-clamp-3 sm:line-clamp-2 md:line-clamp-4 lg:line-clamp-2"
+        >
+          {text}
+        </p>
+      </div>
+    </div>
+  )
+}
+
+function Sorter({ bins, items, className = '', coach = false }) {
+  const [deck, setDeck] = useState(() => shuffle(items))
   const [index, setIndex] = useState(0)
   const [solvedBin, setSolvedBin] = useState(null)
   const [wrongBin, setWrongBin] = useState(null)
@@ -17,13 +68,13 @@ function Sorter({ bins, items, className = '' }) {
   const [score, setScore] = useState(0)
   const [missedItems, setMissedItems] = useState([])
 
-  const item = items[index]
+  const item = deck[index]
   const solved = solvedBin === item.bin
-  const isLast = index === items.length - 1
+  const isLast = index === deck.length - 1
   const finished = solved && isLast
   const ItemIcon = item.icon
 
-  const progress = (index + (solved ? 1 : 0)) / items.length
+  const progress = (index + (solved ? 1 : 0)) / deck.length
 
   // Load every photo for this set once, so changing items never flashes empty.
   useEffect(() => {
@@ -51,6 +102,7 @@ function Sorter({ bins, items, className = '' }) {
   }
 
   const reset = () => {
+    setDeck(shuffle(items))
     setIndex(0)
     setSolvedBin(null)
     setWrongBin(null)
@@ -67,46 +119,45 @@ function Sorter({ bins, items, className = '' }) {
     setMissed(false)
   }
 
-  if (finished) {
-    const perfect = score === items.length
-    return (
-      <div className={className}>
-        <div
-          role="status"
-          className="flex animate-pop flex-col items-center justify-center rounded-3xl border border-white/80 bg-white/60 px-6 py-12 text-center motion-reduce:animate-none md:py-16"
-        >
-          <span
-            className={`flex h-14 w-14 items-center justify-center rounded-full ${
-              perfect ? 'bg-leaf-100 text-leaf-700' : 'bg-sun-100 text-[#8a6d1f]'
-            }`}
-            aria-hidden="true"
-          >
-            <Check size={30} strokeWidth={2.5} />
-          </span>
+  const perfect = score === deck.length
 
-          <p className="mt-5 font-heading text-5xl font-semibold tabular-nums">
-            {score} of {items.length}
-          </p>
-          <p className="mt-1 font-bold text-bark/70">sorted right on the first try</p>
+  // The station keeps its height when the round ends: the play layout stays in
+  // the flow (hidden) and the score card is laid over it, so nothing below moves.
+  const resultPanel = finished ? (
+    <div
+      role="status"
+      className="absolute inset-0 flex animate-pop flex-col items-center justify-center rounded-3xl border border-white/80 bg-white/60 px-6 py-12 text-center motion-reduce:animate-none"
+    >
+      <span
+        className={`flex h-14 w-14 items-center justify-center rounded-full ${
+          perfect ? 'bg-leaf-100 text-leaf-700' : 'bg-sun-100 text-[#8a6d1f]'
+        }`}
+        aria-hidden="true"
+      >
+        <Check size={30} strokeWidth={2.5} />
+      </span>
 
-          <p className="mt-4 max-w-sm leading-relaxed text-bark/80">
-            {perfect
-              ? 'Every item went in the right bin without a second guess.'
-              : `Good run. ${missedItems.length === 1 ? 'One item needed' : `${missedItems.length} items needed`} a second look: ${missedItems.join(', ')}.`}
-          </p>
+      <p className="mt-5 font-heading text-5xl font-semibold tabular-nums">
+        {score} of {deck.length}
+      </p>
+      <p className="mt-1 font-bold text-bark/70">sorted right on the first try</p>
 
-          <button
-            type="button"
-            onClick={reset}
-            className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full bg-bark px-5 font-bold text-white transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-bark/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
-          >
-            <RotateCcw size={18} />
-            Play again
-          </button>
-        </div>
-      </div>
-    )
-  }
+      <p className="mt-4 max-w-sm leading-relaxed text-bark/80">
+        {perfect
+          ? 'Every item went in the right bin without a second guess.'
+          : `Good run. ${missedItems.length === 1 ? 'One item needed' : `${missedItems.length} items needed`} a second look: ${missedItems.join(', ')}.`}
+      </p>
+
+      <button
+        type="button"
+        onClick={reset}
+        className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full bg-bark px-5 font-bold text-white transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-bark/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
+      >
+        <RotateCcw size={18} />
+        Play again
+      </button>
+    </div>
+  ) : null
 
   const feedback = solved
     ? `Correct. ${item.tip}`
@@ -116,13 +167,17 @@ function Sorter({ bins, items, className = '' }) {
   const hint = solved ? 'Next one when you are ready.' : 'First-try answers score a point.'
 
   return (
-    <div className={className}>
-      <div className="grid gap-5 md:grid-cols-2">
+    <div className={`relative ${className}`}>
+      <div
+        aria-hidden={finished || undefined}
+        className={finished ? 'invisible' : undefined}
+      >
+        <div className="grid gap-5 md:grid-cols-2">
         {/* Object card: the right half on desktop, first on mobile */}
         <div className="flex h-full flex-col rounded-3xl border border-white/80 bg-white/60 p-4 md:order-last">
           <div className="flex items-center justify-between text-sm font-bold text-bark/70">
             <span className="tabular-nums">
-              Item {index + 1} of {items.length}
+              Item {index + 1} of {deck.length}
             </span>
             <span className="tabular-nums">Score {score}</span>
           </div>
@@ -131,7 +186,7 @@ function Sorter({ bins, items, className = '' }) {
             key={item.name}
             className="mt-3 flex min-h-0 flex-1 animate-pop flex-col motion-reduce:animate-none"
           >
-            <div className="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl bg-linear-to-br from-[#eaf2e6] to-[#dfe9d9] ring-1 ring-inset ring-bark/5">
+            <div className="flex aspect-[3/2] items-center justify-center overflow-hidden rounded-2xl bg-linear-to-br from-[#eaf2e6] to-[#dfe9d9] ring-1 ring-inset ring-bark/5">
               {item.photo ? (
                 <img
                   src={item.photo}
@@ -208,14 +263,22 @@ function Sorter({ bins, items, className = '' }) {
             })}
           </div>
 
-          <p
-            aria-live="polite"
-            className="mt-4 h-18 overflow-hidden text-sm leading-6 text-bark/80 md:text-base"
-          >
-            <span className="line-clamp-3">{feedback}</span>
-          </p>
+          {coach ? (
+            <CoachNote item={item} solved={solved} missed={missed} />
+          ) : (
+            <p
+              aria-live="polite"
+              className="mt-4 h-18 overflow-hidden text-sm leading-6 text-bark/80 md:text-base"
+            >
+              <span className="line-clamp-3">{feedback}</span>
+            </p>
+          )}
 
-          <div className="mt-auto flex h-12 items-center justify-between gap-3">
+          <div
+            className={`mt-auto flex items-center justify-between gap-3 ${
+              coach ? 'min-h-12 pt-4' : 'h-12'
+            }`}
+          >
             <p className="hidden text-sm leading-5 text-bark/60 sm:line-clamp-2">{hint}</p>
             <button
               type="button"
@@ -230,7 +293,9 @@ function Sorter({ bins, items, className = '' }) {
             </button>
           </div>
         </div>
+        </div>
       </div>
+      {resultPanel}
     </div>
   )
 }
