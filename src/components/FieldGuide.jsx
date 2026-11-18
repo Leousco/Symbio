@@ -1,9 +1,10 @@
 import { useRef, useState } from 'react'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import InfoModal from './InfoModal'
 
 // Filterable gallery of field-guide entries. Each card opens the post-style
-// InfoModal, so the grid itself stays visual and calm.
+// InfoModal, so the grid itself stays visual and calm. Set `pageSize` to split
+// long guides into pages; groups that fit on one page keep the plain grid.
 function FieldGuide({
   id = 'guide',
   kicker = 'Field guide',
@@ -12,15 +13,39 @@ function FieldGuide({
   items,
   groups,
   accentClass = 'bg-bark text-cream',
+  pageSize = 0,
+  randomCardPhoto = false,
 }) {
   const [filter, setFilter] = useState('All')
+  const [page, setPage] = useState(1)
   const [activeId, setActiveId] = useState(null)
   const gridRef = useRef(null)
+
+  // Pick one photo per card, once per mount, so the grid keeps the same photo
+  // while paging or filtering but greets each visit with a different shot.
+  const [cardPhotos] = useState(() => {
+    if (!randomCardPhoto) return {}
+    const picks = {}
+    items.forEach((item) => {
+      const photos = (item.media ?? []).filter((media) => media.src)
+      if (photos.length > 0) {
+        picks[item.id] = photos[Math.floor(Math.random() * photos.length)]
+      }
+    })
+    return picks
+  })
 
   const visible = filter === 'All' ? items : items.filter((item) => item.group === filter)
   const position = visible.findIndex((item) => item.id === activeId)
   const active = position >= 0 ? visible[position] : null
   const headingId = `${id}-heading`
+
+  const paged = pageSize > 0
+  const pageCount = paged ? Math.max(1, Math.ceil(visible.length / pageSize)) : 1
+  const currentPage = Math.min(page, pageCount)
+  const start = paged ? (currentPage - 1) * pageSize : 0
+  const shown = paged ? visible.slice(start, start + pageSize) : visible
+  const pages = Array.from({ length: pageCount }, (_, index) => index + 1)
 
   const close = () => {
     const lastId = activeId
@@ -30,8 +55,23 @@ function FieldGuide({
     })
   }
 
+  const goToPage = (nextPage) => {
+    setPage(nextPage)
+    requestAnimationFrame(() => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      gridRef.current?.scrollIntoView({
+        behavior: reduceMotion ? 'auto' : 'smooth',
+        block: 'start',
+      })
+    })
+  }
+
   const navigate = (step) => {
-    const next = visible[(position + step + visible.length) % visible.length]
+    const nextPosition = (position + step + visible.length) % visible.length
+    const next = visible[nextPosition]
+    // Keep the grid on the page of the entry being opened, so closing the
+    // dialog returns focus to a card that is actually rendered.
+    if (paged) setPage(Math.floor(nextPosition / pageSize) + 1)
     setActiveId(next.id)
   }
 
@@ -58,7 +98,10 @@ function FieldGuide({
               key={group}
               type="button"
               aria-pressed={selected}
-              onClick={() => setFilter(group)}
+              onClick={() => {
+                setFilter(group)
+                setPage(1)
+              }}
               className={`min-h-10 rounded-full px-4 text-sm font-bold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600 ${
                 selected ? accentClass : 'glass text-bark hover:bg-surface/70'
               }`}
@@ -69,9 +112,14 @@ function FieldGuide({
         })}
       </div>
 
-      <div ref={gridRef} className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {visible.map((item) => {
+      <div
+        ref={gridRef}
+        key={paged ? `${filter}-${currentPage}` : filter}
+        className="grid scroll-mt-28 gap-5 motion-safe:animate-rise sm:grid-cols-2 lg:grid-cols-3"
+      >
+        {shown.map((item) => {
           const Icon = item.icon
+          const photo = cardPhotos[item.id]
           return (
             <button
               key={item.id}
@@ -84,12 +132,24 @@ function FieldGuide({
                 className={`relative flex h-36 items-center justify-center ${item.visual}`}
                 aria-hidden="true"
               >
-                <Icon
-                  size={56}
-                  strokeWidth={1.3}
-                  className="transition duration-500 group-hover:scale-110"
-                />
-                <span className="absolute left-3 top-3 rounded-full bg-surface/85 px-3 py-1 text-xs font-extrabold text-bark dark:bg-[#0b0d1c]/80 dark:text-white">
+                {photo ? (
+                  <img
+                    src={photo.src}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    draggable="false"
+                    style={{ objectPosition: photo.objectPosition ?? 'center' }}
+                    className="absolute inset-0 h-full w-full select-none object-cover transition duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <Icon
+                    size={56}
+                    strokeWidth={1.3}
+                    className="transition duration-500 group-hover:scale-110"
+                  />
+                )}
+                <span className="absolute left-3 top-3 z-10 rounded-full bg-surface/85 px-3 py-1 text-xs font-extrabold text-bark dark:bg-[#0b0d1c]/80 dark:text-white">
                   {item.group}
                 </span>
               </span>
@@ -108,6 +168,57 @@ function FieldGuide({
           )
         })}
       </div>
+
+      {paged && pageCount > 1 && (
+        <nav
+          aria-label={`${title} pages`}
+          className="flex flex-col items-center justify-between gap-4 px-2 pt-2 sm:flex-row"
+        >
+          <p className="text-sm font-bold text-bark/60" aria-live="polite">
+            Showing {start + 1}–{Math.min(start + pageSize, visible.length)} of {visible.length}
+          </p>
+
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => goToPage(currentPage - 1)}
+              disabled={currentPage === 1}
+              aria-label="Previous page"
+              className="glass flex h-10 w-10 items-center justify-center rounded-full text-bark transition hover:bg-surface/70 disabled:pointer-events-none disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
+            >
+              <ChevronLeft size={18} />
+            </button>
+
+            {pages.map((pageNumber) => {
+              const selected = pageNumber === currentPage
+              return (
+                <button
+                  key={pageNumber}
+                  type="button"
+                  onClick={() => goToPage(pageNumber)}
+                  aria-label={`Go to page ${pageNumber}`}
+                  aria-current={selected ? 'page' : undefined}
+                  className={`flex h-10 min-w-10 items-center justify-center rounded-full px-3 text-sm font-extrabold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600 ${
+                    selected ? accentClass : 'glass text-bark hover:bg-surface/70'
+                  }`}
+                >
+                  {pageNumber}
+                </button>
+              )
+            })}
+
+            <button
+              type="button"
+              onClick={() => goToPage(currentPage + 1)}
+              disabled={currentPage === pageCount}
+              aria-label="Next page"
+              className="glass flex h-10 w-10 items-center justify-center rounded-full text-bark transition hover:bg-surface/70 disabled:pointer-events-none disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
+        </nav>
+      )}
 
       {active && (
         <InfoModal entry={active} items={visible} onClose={close} onNavigate={navigate} />

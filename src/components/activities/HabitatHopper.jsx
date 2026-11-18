@@ -80,8 +80,8 @@ function HabitatHopper() {
           </span>
         </div>
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          {habitat.creatures.map(({ name, icon: Icon, trick }, index) => {
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {habitat.creatures.map(({ name, icon: Icon, trick, image }, index) => {
             const open = revealed.includes(index)
             return (
               <button
@@ -89,17 +89,29 @@ function HabitatHopper() {
                 type="button"
                 aria-expanded={open}
                 onClick={() => toggleCreature(index)}
-                className={`flex min-h-44 flex-col items-start gap-3 rounded-3xl border-2 p-5 text-left shadow-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600 ${habitat.card}`}
+                className={`group relative flex h-[15rem] flex-col items-start gap-3 overflow-hidden rounded-3xl border-2 p-5 text-left shadow-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600 ${habitat.card}`}
               >
+                <img
+                  src={image}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  draggable="false"
+                  className="pointer-events-none absolute inset-0 h-full w-full select-none object-cover opacity-100 transition duration-500 group-hover:scale-105 motion-reduce:transition-none"
+                />
                 <span
-                  className={`flex h-12 w-12 items-center justify-center rounded-2xl ${habitat.creatureIcon}`}
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/75 via-black/30 to-black/10 dark:from-black/85 dark:via-black/40 dark:to-black/15"
+                />
+                <span
+                  className={`relative flex h-12 w-12 items-center justify-center rounded-2xl ${habitat.creatureIcon}`}
                 >
                   <Icon size={26} />
                 </span>
-                <span className="font-heading text-lg font-semibold leading-tight">{name}</span>
+                <span className="relative mt-auto font-heading text-lg font-semibold leading-tight text-white drop-shadow-sm">{name}</span>
                 <span
-                  className={`text-sm leading-relaxed ${
-                    open ? 'animate-pop text-bark/80 motion-reduce:animate-none' : 'text-bark/70'
+                  className={`relative min-h-[2.75rem] text-sm leading-relaxed text-white/90 drop-shadow-sm ${
+                    open ? 'animate-pop motion-reduce:animate-none' : ''
                   }`}
                 >
                   {open ? trick : 'Tap to see the trick'}

@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, X } from 'lucide-react'
+import usePrefersReducedMotion from '../hooks/usePrefersReducedMotion'
 
 const CLOSE_MS = 170
+const HOLD_MS = 4000
+const FADE_MS = 700
 const FOCUSABLE =
   'button:not([disabled]), [href], input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])'
 
@@ -15,6 +18,8 @@ function InfoModal({ entry, items, onClose, onNavigate }) {
   const [mediaState, setMediaState] = useState({ id: entry.id, index: 0 })
   const mediaIndex = mediaState.id === entry.id ? mediaState.index : 0
   const [closing, setClosing] = useState(false)
+  const [paused, setPaused] = useState(false)
+  const reduce = usePrefersReducedMotion()
   const panelRef = useRef(null)
   const closeRef = useRef(null)
   const titleId = useId()
@@ -36,9 +41,11 @@ function InfoModal({ entry, items, onClose, onNavigate }) {
   }, [])
 
   const position = items.findIndex((item) => item.id === entry.id)
-  const media = entry.media?.[mediaIndex] ?? entry.media?.[0]
-  const mediaCount = entry.media?.length ?? 0
-  const MediaIcon = media?.icon
+  const mediaItems = entry.media ?? []
+  const media = mediaItems[mediaIndex] ?? mediaItems[0]
+  const mediaCount = mediaItems.length
+  // Only roll the rail on its own once there is a real photo sequence to show.
+  const slideshow = mediaItems.filter((item) => item.src).length > 1
 
   // Keyboard: Esc closes, arrows browse the field guide, Tab stays inside
   useEffect(() => {
@@ -95,13 +102,23 @@ function InfoModal({ entry, items, onClose, onNavigate }) {
     })
   }
 
+  // Auto-advance the rail like the homepage slideshows. Hovering the rail
+  // pauses it and the manual arrows restart the hold from the clicked image.
+  useEffect(() => {
+    if (!slideshow || paused || reduce) return
+    const timer = window.setTimeout(() => {
+      setMediaState({ id: entry.id, index: (mediaIndex + 1) % mediaCount })
+    }, HOLD_MS + FADE_MS)
+    return () => window.clearTimeout(timer)
+  }, [entry.id, mediaIndex, mediaCount, slideshow, paused, reduce])
+
   const previous = position > 0 ? items[position - 1] : items[items.length - 1]
   const next = position < items.length - 1 ? items[position + 1] : items[0]
 
   return createPortal(
     <div className="fixed inset-0 z-100 flex items-stretch justify-center sm:items-center sm:p-6">
       <div
-        className="absolute inset-0 animate-fade-in bg-bark/55 backdrop-blur-sm"
+        className="absolute inset-0 animate-fade-in bg-scrim/55 backdrop-blur-sm"
         onClick={close}
         aria-hidden="true"
       />
@@ -117,8 +134,42 @@ function InfoModal({ entry, items, onClose, onNavigate }) {
       >
         <div className="grid min-h-0 flex-1 grid-rows-[14rem_minmax(0,1fr)] md:grid-cols-[1.05fr_1fr] md:grid-rows-1">
           {/* Media rail */}
-          <div className="relative flex min-h-0 flex-col justify-between overflow-hidden">
-            <div className={`absolute inset-0 ${media.visual}`} aria-hidden="true" />
+          <div
+            className="relative flex min-h-0 flex-col justify-between overflow-hidden"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+          >
+            {mediaItems.map((item, index) => {
+              const LayerIcon = item.icon
+              const active = index === mediaIndex
+              return (
+                <div
+                  key={`${item.label}-${index}`}
+                  aria-hidden={!active}
+                  style={{ transitionDuration: reduce ? '0ms' : `${FADE_MS}ms` }}
+                  className={`pointer-events-none absolute inset-0 transition-opacity ease-in-out ${item.visual} ${
+                    active ? 'opacity-100' : 'opacity-0'
+                  }`}
+                >
+                  {item.src ? (
+                    <img
+                      src={item.src}
+                      alt={active ? (item.alt ?? '') : ''}
+                      draggable="false"
+                      decoding="async"
+                      style={{ objectPosition: item.objectPosition ?? 'center' }}
+                      className="h-full w-full select-none object-cover"
+                    />
+                  ) : (
+                    LayerIcon && (
+                      <div className="flex h-full w-full items-center justify-center px-8">
+                        <LayerIcon size={128} strokeWidth={1} />
+                      </div>
+                    )
+                  )}
+                </div>
+              )
+            })}
 
             <div className="relative flex items-center justify-between gap-3 p-4">
               <span className="glass rounded-full px-3.5 py-1.5 text-xs font-extrabold text-bark dark:bg-[#0b0d1c]/80 dark:text-white">
@@ -135,26 +186,6 @@ function InfoModal({ entry, items, onClose, onNavigate }) {
               </button>
             </div>
 
-            <div className="relative flex min-h-0 flex-1 items-center justify-center px-8">
-              {media.src ? (
-                <img
-                  key={media.src}
-                  src={media.src}
-                  alt={media.alt ?? ''}
-                  className="h-full w-full animate-pop object-cover motion-reduce:animate-none"
-                />
-              ) : (
-                MediaIcon && (
-                  <MediaIcon
-                    key={mediaIndex}
-                    size={128}
-                    strokeWidth={1}
-                    className="animate-pop max-h-full motion-reduce:animate-none"
-                  />
-                )
-              )}
-            </div>
-
             <div className="relative flex items-end justify-between gap-3 p-4">
               <span className="glass rounded-full px-4 py-1.5 text-sm font-bold text-bark dark:bg-[#0b0d1c]/80 dark:text-white">
                 {media.label}
@@ -169,7 +200,7 @@ function InfoModal({ entry, items, onClose, onNavigate }) {
                   >
                     <ChevronLeft size={18} />
                   </button>
-                  <span className="text-xs font-bold text-bark/70" aria-live="polite">
+                  <span className="glass rounded-full px-2.5 py-1 text-xs font-bold text-bark dark:bg-[#0b0d1c]/80 dark:text-white">
                     {mediaIndex + 1} / {mediaCount}
                   </span>
                   <button
@@ -186,7 +217,7 @@ function InfoModal({ entry, items, onClose, onNavigate }) {
           </div>
 
           {/* Story */}
-          <div className="min-h-0 overflow-y-auto p-6 sm:p-8">
+          <div className="scrollbar-soft min-h-0 overflow-y-auto p-6 sm:p-8">
             <h2 id={titleId} className="font-heading text-3xl font-semibold leading-tight">
               {entry.name}
             </h2>

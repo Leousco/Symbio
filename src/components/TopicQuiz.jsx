@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { ArrowRight, Check, RotateCcw, X } from 'lucide-react'
+import { ArrowRight, Check, Lightbulb, RotateCcw, X } from 'lucide-react'
 import GlassCard from './GlassCard'
 
 // Three-question check at the bottom of each topic page.
-// questions: [{ question, options: [string], answer: index, explain }]
+// questions: [{ question, options: [string], answer: index, explain, hint }]
 function TopicQuiz({
   kicker = 'Quick check',
   title,
@@ -60,7 +60,7 @@ function TopicQuiz({
       </div>
 
       {finished ? (
-        <div className="animate-pop rounded-3xl border border-hairline/70 bg-surface/70 p-6 text-center motion-reduce:animate-none">
+        <div className="animate-pop flex h-[16rem] flex-col items-center justify-center rounded-3xl border border-hairline/70 bg-surface/70 p-6 text-center motion-reduce:animate-none">
           <p className="font-heading text-2xl font-semibold">
             {score} of {questions.length} correct
           </p>
@@ -81,10 +81,10 @@ function TopicQuiz({
           </button>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="flex h-[16rem] flex-col">
           <p className="text-lg font-bold">{question.question}</p>
 
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
             {question.options.map((option, i) => {
               const isPicked = picked === i
               const isAnswer = question.answer === i
@@ -111,27 +111,41 @@ function TopicQuiz({
             })}
           </div>
 
-          <div aria-live="polite" className="min-h-12">
-            {answered && (
-              <p className="animate-pop leading-relaxed text-bark/80 motion-reduce:animate-none">
-                <span className="font-extrabold">
-                  {picked === question.answer ? 'Correct. ' : 'Not quite. '}
-                </span>
-                {question.explain}
-              </p>
+          <div className="mt-4 flex flex-1 flex-col justify-end gap-3">
+            {answered ? (
+              <>
+                <p
+                  aria-live="polite"
+                  className="animate-pop leading-relaxed text-bark/80 motion-reduce:animate-none"
+                >
+                  <span className="font-extrabold">
+                    {picked === question.answer ? 'Correct. ' : 'Not quite. '}
+                  </span>
+                  {question.explain}
+                </p>
+                <button
+                  type="button"
+                  onClick={next}
+                  className="inline-flex min-h-11 w-fit items-center gap-2 rounded-full bg-bark px-5 font-bold text-cream transition hover:-translate-y-0.5"
+                >
+                  {isLast ? 'See result' : 'Next question'}
+                  <ArrowRight size={18} />
+                </button>
+              </>
+            ) : (
+              question.hint && (
+                <div className="flex items-start gap-3 rounded-2xl border border-hairline/60 bg-surface/50 px-4 py-3">
+                  <Lightbulb size={17} className="mt-0.5 flex-none text-bark/40" />
+                  <div>
+                    <p className="text-xs font-extrabold uppercase tracking-wide text-bark/40">
+                      How to think about it
+                    </p>
+                    <p className="mt-0.5 text-sm leading-relaxed text-bark/60">{question.hint}</p>
+                  </div>
+                </div>
+              )
             )}
           </div>
-
-          {answered && (
-            <button
-              type="button"
-              onClick={next}
-              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-bark px-5 font-bold text-cream transition hover:-translate-y-0.5"
-            >
-              {isLast ? 'See result' : 'Next question'}
-              <ArrowRight size={18} />
-            </button>
-          )}
         </div>
       )}
     </GlassCard>
@@ -139,3 +153,4 @@ function TopicQuiz({
 }
 
 export default TopicQuiz
+

@@ -33,10 +33,12 @@
 
   /* Theme-aware surfaces: literal white panels/borders in the light theme
      become faint glass in the dark theme. `ink` is fixed dark text that sits
-     on bright accent fills (sun yellow) in both themes. */
+     on bright accent fills (sun yellow) in both themes. `scrim` is the wash
+     behind dialogs: moss in the day theme, near-black at night. */
   --color-surface: #ffffff;
   --color-hairline: #ffffff;
   --color-ink: #22301f;
+  --color-scrim: #2b3a2f;
 
   /* Motion */
   --animate-pop: pop 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -82,6 +84,10 @@
      into the token, so `bg-surface/60` resolves to ~10% white here. */
   --color-surface: rgb(255 255 255 / 0.16);
   --color-hairline: rgb(255 255 255 / 0.22);
+
+  /* Dialog scrim: near-black so opening a panel dims the aurora backdrop
+     instead of washing it with the light `bark` text colour. */
+  --color-scrim: #080a16;
 }
 
 @keyframes pop {
@@ -180,6 +186,10 @@
     --glass-dark-border: rgb(255 255 255 / 0.18);
     --glass-dark-shadow: 0 8px 32px rgb(0 0 0 / 0.25);
     --glass-dark-highlight: rgb(255 255 255 / 0.2);
+
+    /* Thin scrollbars for scrolling panels (the field-guide dialog) */
+    --scrollbar-thumb: rgb(43 58 47 / 0.28);
+    --scrollbar-thumb-hover: rgb(43 58 47 / 0.5);
   }
 
   /* Aurora Night: green top-left, violet top-right, teal bottom-right */
@@ -196,6 +206,9 @@
     --glass-dark-border: rgb(255 255 255 / 0.16);
     --glass-dark-shadow: 0 8px 32px rgb(0 0 0 / 0.5);
     --glass-dark-highlight: rgb(255 255 255 / 0.12);
+
+    --scrollbar-thumb: rgb(236 240 255 / 0.24);
+    --scrollbar-thumb-hover: rgb(236 240 255 / 0.45);
   }
 
   html {
@@ -300,6 +313,38 @@
   @media (prefers-reduced-motion: reduce) {
     .nav-pill {
       transition: none;
+    }
+  }
+
+  /* Thin, rounded scrollbar for scrolling panels (the field-guide dialog).
+     WebKit gets a custom pill thumb floating in a transparent track; Firefox
+     gets its native thin scrollbar tinted with the same theme colours.
+     The standard properties live behind a non-WebKit check so Chromium keeps
+     the ::-webkit-* styling instead of falling back to native arrows. */
+  .scrollbar-soft::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  .scrollbar-soft::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-soft::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 9999px;
+    background-color: var(--scrollbar-thumb);
+    background-clip: content-box;
+  }
+
+  .scrollbar-soft::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-thumb-hover);
+  }
+
+  @supports not selector(::-webkit-scrollbar) {
+    .scrollbar-soft {
+      scrollbar-width: thin;
+      scrollbar-color: var(--scrollbar-thumb) transparent;
     }
   }
 }

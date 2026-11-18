@@ -19,11 +19,11 @@ function Animals() {
         title="Every animal has"
         highlight="a trick."
         highlightClass="text-sun-500"
-        description="From frogs that freeze solid to foxes that hear insects under the sand. Pick a habitat, then open the field guide to meet ten creatures up close."
+        description="From frogs that freeze solid to foxes that hear insects under the sand. Pick a habitat, then open the field guide to meet twenty creatures up close."
         icon={PawPrint}
         orb="bg-linear-to-br from-sun-100 via-sun-400 to-[#e08a3c] dark:from-[#3a2c12] dark:via-[#b5741f] dark:to-[#6b3f12]"
         chips={[
-          { icon: PawPrint, label: '10 creatures' },
+          { icon: PawPrint, label: '20 creatures' },
           { icon: MapPin, label: '4 habitats' },
           { icon: Snowflake, label: 'Survives -60°C' },
         ]}
@@ -34,10 +34,12 @@ function Animals() {
 
       <FieldGuide
         title="Meet the neighbours"
-        description="Ten creatures, one superpower each. Tap a card to open its full story."
+        description="Twenty creatures, one superpower each. Tap a card to open its full story."
         items={animals}
         groups={animalGroups}
         accentClass="bg-sun-500 text-ink"
+        pageSize={9}
+        randomCardPhoto
       />
 
       {article && (

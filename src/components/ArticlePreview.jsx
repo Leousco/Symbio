@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
+import usePrefersReducedMotion from '../hooks/usePrefersReducedMotion'
 
 // How long each photo holds before cross-fading to the next.
 const HOLD_MS = 4000
@@ -26,23 +27,6 @@ function preloadImage(src) {
     img.onerror = done
     img.src = src
   })
-}
-
-function usePrefersReducedMotion() {
-  const [reduce, setReduce] = useState(
-    () =>
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-  )
-
-  useEffect(() => {
-    const query = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const onChange = () => setReduce(query.matches)
-    query.addEventListener('change', onChange)
-    return () => query.removeEventListener('change', onChange)
-  }, [])
-
-  return reduce
 }
 
 // Auto-advancing photo slideshow for one article section.
