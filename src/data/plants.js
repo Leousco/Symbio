@@ -27,9 +27,27 @@ export const plants = [
       { label: 'Wildlife', value: '500+ species' },
     ],
     media: [
-      { label: 'The canopy', icon: TreePine, visual: 'bg-linear-to-br from-leaf-100 to-leaf-600 text-white' },
-      { label: 'Acorns', icon: Sprout, visual: 'bg-linear-to-br from-[#e3d3b5] to-[#a98a5c] text-white' },
-      { label: 'The bark', icon: Trees, visual: 'bg-linear-to-br from-[#d8ceb8] to-[#8a7a5e] text-white' },
+      {
+        label: 'The canopy',
+        icon: TreePine,
+        visual: 'bg-linear-to-br from-leaf-100 to-leaf-600 text-white',
+        src: '/images/plants/field-guide/oak-tree-1.jpg',
+        alt: 'An oak tree’s broad canopy seen from below against a pale sky',
+      },
+      {
+        label: 'Acorns',
+        icon: Sprout,
+        visual: 'bg-linear-to-br from-[#e3d3b5] to-[#a98a5c] text-white',
+        src: '/images/plants/field-guide/oak-tree-2.jpg',
+        alt: 'Ripening acorns hanging among oak leaves',
+      },
+      {
+        label: 'The bark',
+        icon: Trees,
+        visual: 'bg-linear-to-br from-[#d8ceb8] to-[#8a7a5e] text-white',
+        src: '/images/plants/field-guide/oak-tree-3.jpg',
+        alt: 'The deeply furrowed trunk of an old oak tree',
+      },
     ],
     intro:
       'An oak is not one home but a whole neighbourhood. Its roots, bark, leaves and acorns feed and shelter hundreds of other living things.',
@@ -54,9 +72,27 @@ export const plants = [
       { label: 'Home', value: 'Coastlines' },
     ],
     media: [
-      { label: 'The roots', icon: Trees, visual: 'bg-linear-to-br from-leaf-100 to-leaf-600 text-white' },
-      { label: 'The coast', icon: Waves, visual: 'bg-linear-to-br from-ocean-100 to-ocean-600 text-white' },
-      { label: 'The nursery', icon: Droplets, visual: 'bg-linear-to-br from-[#cfeaf5] to-ocean-500 text-white' },
+      {
+        label: 'The roots',
+        icon: Trees,
+        visual: 'bg-linear-to-br from-leaf-100 to-leaf-600 text-white',
+        src: '/images/plants/field-guide/mangrove-3.jpg',
+        alt: 'Mangrove roots arching above shallow water',
+      },
+      {
+        label: 'The coast',
+        icon: Waves,
+        visual: 'bg-linear-to-br from-ocean-100 to-ocean-600 text-white',
+        src: '/images/plants/field-guide/mangrove-1.jpg',
+        alt: 'A dense mangrove forest growing along a muddy shoreline',
+      },
+      {
+        label: 'The nursery',
+        icon: Droplets,
+        visual: 'bg-linear-to-br from-[#cfeaf5] to-ocean-500 text-white',
+        src: '/images/plants/field-guide/mangrove-2.jpg',
+        alt: 'Mangrove roots reflected in calm water',
+      },
     ],
     intro:
       'Mangroves grow where river meets sea, standing in salty mud on roots that reach up out of the water.',
@@ -81,9 +117,27 @@ export const plants = [
       { label: 'Family', value: 'Grass' },
     ],
     media: [
-      { label: 'The shoot', icon: Sprout, visual: 'bg-linear-to-br from-leaf-100 to-leaf-600 text-white' },
-      { label: 'The stem', icon: Trees, visual: 'bg-linear-to-br from-[#e2ebd8] to-[#6d8a4f] text-white' },
-      { label: 'The grove', icon: Trees, visual: 'bg-linear-to-br from-[#dcf1dc] to-leaf-600 text-white' },
+      {
+        label: 'The shoot',
+        icon: Sprout,
+        visual: 'bg-linear-to-br from-leaf-100 to-leaf-600 text-white',
+        src: '/images/plants/field-guide/bamboo-1.jpg',
+        alt: 'A new bamboo shoot emerging in front of mature green stalks',
+      },
+      {
+        label: 'The stem',
+        icon: Trees,
+        visual: 'bg-linear-to-br from-[#e2ebd8] to-[#6d8a4f] text-white',
+        src: '/images/plants/field-guide/bamboo-2.jpg',
+        alt: 'Sunlight filtering through a stand of bamboo stems',
+      },
+      {
+        label: 'The grove',
+        icon: Trees,
+        visual: 'bg-linear-to-br from-[#dcf1dc] to-leaf-600 text-white',
+        src: '/images/plants/field-guide/bamboo-3.jpg',
+        alt: 'A path winding through a tall bamboo grove',
+      },
     ],
     intro:
       'Bamboo looks like a tree and grows like a race. It is actually a grass, and some species add almost a metre a day.',
@@ -94,6 +148,51 @@ export const plants = [
     ],
     didYouKnow:
       'Because it regrows from the roots, bamboo can be harvested without replanting the whole crop.',
+  },
+  {
+    id: 'baobab',
+    name: 'Baobab',
+    group: 'Trees',
+    superpower: 'Stores water in a giant trunk',
+    icon: TreePine,
+    visual: 'bg-linear-to-br from-[#e3d3b5] to-[#8a7a5e] text-white',
+    stats: [
+      { label: 'Height', value: 'Up to 25 m' },
+      { label: 'Trunk', value: 'Water tank' },
+      { label: 'Age', value: 'Up to 2,000 years' },
+    ],
+    media: [
+      {
+        label: 'The trunk',
+        icon: TreePine,
+        visual: 'bg-linear-to-br from-[#e3d3b5] to-[#8a7a5e] text-white',
+        src: '/images/plants/field-guide/baobab-1.jpg',
+        alt: 'A baobab tree with its thick trunk and flat crown standing in open grassland',
+      },
+      {
+        label: 'The fruit',
+        icon: Sprout,
+        visual: 'bg-linear-to-br from-[#e2ebd8] to-[#8a9a5b] text-white',
+        src: '/images/plants/field-guide/baobab-2.jpg',
+        alt: 'Two baobab fruits hanging from a leafy branch',
+      },
+      {
+        label: 'The savanna',
+        icon: Sun,
+        visual: 'bg-linear-to-br from-[#ffe6b8] to-[#e08a3c] text-ink',
+        src: '/images/plants/field-guide/baobab-3.jpg',
+        alt: 'A row of baobab trees along a dirt road under a blue sky',
+      },
+    ],
+    intro:
+      'A baobab looks like a tree planted upside down. Its fat trunk swells with water during the rains and keeps the tree alive through the long dry season.',
+    facts: [
+      'The trunk can hold tens of thousands of litres of water, enough to last a whole dry season.',
+      'Its bark is fire-resistant and can be stripped off and grow back.',
+      'Baboons, elephants and people all eat its fruit, which is packed with vitamin C.',
+    ],
+    didYouKnow:
+      'Some baobabs grow so wide and hollow that people have used them as shelters, shops and water stores.',
   },
   {
     id: 'sunflower',
@@ -108,9 +207,27 @@ export const plants = [
       { label: 'Family', value: 'Daisy' },
     ],
     media: [
-      { label: 'Facing the sun', icon: Sun, visual: 'bg-linear-to-br from-sun-100 to-sun-500 text-ink' },
-      { label: 'The head', icon: Flower2, visual: 'bg-linear-to-br from-[#ffe6b8] to-sun-500 text-ink' },
-      { label: 'The seeds', icon: Sprout, visual: 'bg-linear-to-br from-[#e3d3b5] to-[#8a7a5e] text-white' },
+      {
+        label: 'Facing the sun',
+        icon: Sun,
+        visual: 'bg-linear-to-br from-sun-100 to-sun-500 text-ink',
+        src: '/images/plants/field-guide/sunflower-1.jpg',
+        alt: 'A sunflower turning its head towards a setting sun',
+      },
+      {
+        label: 'The head',
+        icon: Flower2,
+        visual: 'bg-linear-to-br from-[#ffe6b8] to-sun-500 text-ink',
+        src: '/images/plants/field-guide/sunflower-2.jpg',
+        alt: 'A sunflower head glowing in low golden light',
+      },
+      {
+        label: 'The seeds',
+        icon: Sprout,
+        visual: 'bg-linear-to-br from-[#e3d3b5] to-[#8a7a5e] text-white',
+        src: '/images/plants/field-guide/sunflower-3.jpg',
+        alt: 'A close-up pile of striped sunflower seeds',
+      },
     ],
     intro:
       'Young sunflowers follow the sun across the sky, then settle facing east when they are fully grown.',
@@ -135,9 +252,28 @@ export const plants = [
       { label: 'Leaves', value: 'None' },
     ],
     media: [
-      { label: 'The bloom', icon: Flower2, visual: 'bg-linear-to-br from-[#f3c6c6] to-[#a63d3d] text-white' },
-      { label: 'The host', icon: Trees, visual: 'bg-linear-to-br from-[#e3d3b5] to-[#8a7a5e] text-white' },
-      { label: 'The flies', icon: Bug, visual: 'bg-linear-to-br from-[#e2ebd8] to-[#5b6b4a] text-white' },
+      {
+        label: 'The bloom',
+        icon: Flower2,
+        visual: 'bg-linear-to-br from-[#f3c6c6] to-[#a63d3d] text-white',
+        src: '/images/plants/field-guide/rafflesia-2.jpg',
+        alt: 'A huge rafflesia flower with spotted red petals opening on the forest floor',
+      },
+      {
+        label: 'The host',
+        icon: Trees,
+        visual: 'bg-linear-to-br from-[#e3d3b5] to-[#8a7a5e] text-white',
+        src: '/images/plants/field-guide/rafflesia-1.jpg',
+        alt: 'A rafflesia bloom growing from the roots of its host vine',
+      },
+      {
+        label: 'The flies',
+        icon: Bug,
+        visual: 'bg-linear-to-br from-[#e2ebd8] to-[#5b6b4a] text-white',
+        src: '/images/plants/field-guide/rafflesia-3.jpg',
+        alt: 'A fly resting on the fleshy rim of a rafflesia flower',
+        objectPosition: 'center 30%',
+      },
     ],
     intro:
       'Rafflesia has no leaves, no stem and no roots. It lives as threads inside a vine and bursts out as a giant flower.',
@@ -148,6 +284,96 @@ export const plants = [
     ],
     didYouKnow:
       'Because it has no leaves, rafflesia cannot make its own food. It takes everything from its host vine.',
+  },
+  {
+    id: 'cherry-blossom',
+    name: 'Cherry blossom',
+    group: 'Flowers',
+    superpower: 'Turns a whole tree pink for a fortnight',
+    icon: Flower2,
+    visual: 'bg-linear-to-br from-[#fbe3ea] to-[#d97a9c] text-white',
+    stats: [
+      { label: 'Bloom', value: 'About 2 weeks' },
+      { label: 'Petals', value: 'Pink or white' },
+      { label: 'Home', value: 'East Asia' },
+    ],
+    media: [
+      {
+        label: 'The blossom',
+        icon: Flower2,
+        visual: 'bg-linear-to-br from-[#fbe3ea] to-[#d97a9c] text-white',
+        src: '/images/plants/field-guide/cherry-blossom-1.jpg',
+        alt: 'Pink cherry blossoms filling the branches against a blue sky',
+      },
+      {
+        label: 'The petals',
+        icon: Wind,
+        visual: 'bg-linear-to-br from-[#fbe3ea] to-[#c49ab0] text-white',
+        src: '/images/plants/field-guide/cherry-blossom-2.jpg',
+        alt: 'A close-up cluster of pale pink cherry blossoms',
+      },
+      {
+        label: 'The branch',
+        icon: Trees,
+        visual: 'bg-linear-to-br from-[#f3c6c6] to-[#a63d3d] text-white',
+        src: '/images/plants/field-guide/cherry-blossom-3.jpg',
+        alt: 'A branch of cherry blossom against a dark background',
+      },
+    ],
+    intro:
+      'For a couple of weeks each spring, a cherry tree covers itself in pink and white flowers. Then the petals fall and drift away like snow.',
+    facts: [
+      'The blossom lasts only one or two weeks, and a windy or rainy day can end it sooner.',
+      'Cherry trees are grown for their flowers as well as for their small, sweet fruit.',
+      'In Japan, families gather under the blooming trees to eat and celebrate, a custom called hanami.',
+    ],
+    didYouKnow:
+      'Most garden cherry trees are grown from cuttings, so each new tree is a copy of its parent.',
+  },
+  {
+    id: 'tulip',
+    name: 'Tulip',
+    group: 'Flowers',
+    superpower: 'Sleeps all winter as a bulb',
+    icon: Flower2,
+    visual: 'bg-linear-to-br from-[#ffd9e2] to-[#c2496a] text-white',
+    stats: [
+      { label: 'Height', value: 'Up to 60 cm' },
+      { label: 'Bulb', value: 'Food store' },
+      { label: 'Bloom', value: 'Spring' },
+    ],
+    media: [
+      {
+        label: 'The cup',
+        icon: Flower2,
+        visual: 'bg-linear-to-br from-[#ffd9e2] to-[#c2496a] text-white',
+        src: '/images/plants/field-guide/tulip-2.jpg',
+        alt: 'A yellow tulip cup opening in warm light',
+      },
+      {
+        label: 'The bunch',
+        icon: Sprout,
+        visual: 'bg-linear-to-br from-[#e3d3b5] to-[#8a7a5e] text-white',
+        src: '/images/plants/field-guide/tulip-1.jpg',
+        alt: 'Pink tulips gathered in a glass vase',
+      },
+      {
+        label: 'The field',
+        icon: Sun,
+        visual: 'bg-linear-to-br from-[#ffe6b8] to-sun-500 text-ink',
+        src: '/images/plants/field-guide/tulip-3.jpg',
+        alt: 'Rows of red and white tulips growing under a blue sky',
+      },
+    ],
+    intro:
+      'A tulip spends the cold months packed inside a bulb underground, then shoots up fast when spring arrives.',
+    facts: [
+      'The bulb is a short stem wrapped in thick leaves that store food for next year’s flower.',
+      'Tulips first grew wild in the mountains of Central Asia before people bred them in Turkey and the Netherlands.',
+      'On warm days a tulip flower opens wide, then closes again at night.',
+    ],
+    didYouKnow:
+      'In the 1600s, tulip bulbs in the Netherlands became so valuable that a few sold for more than a house.',
   },
   {
     id: 'venus-flytrap',
@@ -162,9 +388,27 @@ export const plants = [
       { label: 'Diet', value: 'Insects' },
     ],
     media: [
-      { label: 'The trap', icon: Bug, visual: 'bg-linear-to-br from-leaf-100 to-[#8c3f5e] text-white' },
-      { label: 'The trigger', icon: Wind, visual: 'bg-linear-to-br from-[#e6f4f8] to-ocean-500 text-white' },
-      { label: 'The bog', icon: Droplets, visual: 'bg-linear-to-br from-[#dcf1dc] to-leaf-600 text-white' },
+      {
+        label: 'The trap',
+        icon: Bug,
+        visual: 'bg-linear-to-br from-leaf-100 to-[#8c3f5e] text-white',
+        src: '/images/plants/field-guide/venus-flytrap-2.jpg',
+        alt: 'A Venus flytrap with a dark insect caught between its lobes',
+      },
+      {
+        label: 'The trigger',
+        icon: Wind,
+        visual: 'bg-linear-to-br from-[#e6f4f8] to-ocean-500 text-white',
+        src: '/images/plants/field-guide/venus-flytrap-1.jpg',
+        alt: 'A cluster of Venus flytrap leaves showing their trigger hairs',
+      },
+      {
+        label: 'The jaws',
+        icon: Leaf,
+        visual: 'bg-linear-to-br from-[#dcf1dc] to-leaf-600 text-white',
+        src: '/images/plants/field-guide/venus-flytrap-3.jpg',
+        alt: 'Red-lined Venus flytrap traps against a black background',
+      },
     ],
     intro:
       'The Venus flytrap grows in boggy soil that has almost no nutrients, so it catches its own.',
@@ -189,9 +433,27 @@ export const plants = [
       { label: 'Roots', value: 'Wide and shallow' },
     ],
     media: [
-      { label: 'The stem', icon: Sprout, visual: 'bg-linear-to-br from-[#e2ebd8] to-[#8a9a5b] text-white' },
-      { label: 'The spines', icon: Sun, visual: 'bg-linear-to-br from-sun-100 to-sun-500 text-ink' },
-      { label: 'The desert', icon: Sun, visual: 'bg-linear-to-br from-[#ffe6b8] to-[#e08a3c] text-ink' },
+      {
+        label: 'The stem',
+        icon: Sprout,
+        visual: 'bg-linear-to-br from-[#e2ebd8] to-[#8a9a5b] text-white',
+        src: '/images/plants/field-guide/cactus-1.jpg',
+        alt: 'A tall saguaro cactus standing alone in a dry desert',
+      },
+      {
+        label: 'The spines',
+        icon: Sun,
+        visual: 'bg-linear-to-br from-sun-100 to-sun-500 text-ink',
+        src: '/images/plants/field-guide/cactus-2.jpg',
+        alt: 'Sharp spines running along the edge of a cactus stem',
+      },
+      {
+        label: 'The fruit',
+        icon: Flower2,
+        visual: 'bg-linear-to-br from-[#ffe6b8] to-[#e08a3c] text-ink',
+        src: '/images/plants/field-guide/cactus-3.jpg',
+        alt: 'A prickly pear cactus covered in red fruits in a rocky desert',
+      },
     ],
     intro:
       'A cactus is built to hold water. Its stem swells after rain, and its leaves have become spines to save every drop.',
@@ -216,9 +478,27 @@ export const plants = [
       { label: 'Roots', value: 'None' },
     ],
     media: [
-      { label: 'The carpet', icon: Leaf, visual: 'bg-linear-to-br from-[#e2ebd8] to-[#4f6b3a] text-white' },
-      { label: 'The water', icon: Droplets, visual: 'bg-linear-to-br from-[#cfeaf5] to-ocean-500 text-white' },
-      { label: 'The shade', icon: Trees, visual: 'bg-linear-to-br from-[#dcf1dc] to-leaf-600 text-white' },
+      {
+        label: 'The carpet',
+        icon: Leaf,
+        visual: 'bg-linear-to-br from-[#e2ebd8] to-[#4f6b3a] text-white',
+        src: '/images/plants/field-guide/moss-1.jpg',
+        alt: 'Moss carpeting rocky ground on a hillside',
+      },
+      {
+        label: 'The water',
+        icon: Droplets,
+        visual: 'bg-linear-to-br from-[#cfeaf5] to-ocean-500 text-white',
+        src: '/images/plants/field-guide/moss-2.jpg',
+        alt: 'Moss-covered stones beside a stream in a shady forest',
+      },
+      {
+        label: 'The shade',
+        icon: Trees,
+        visual: 'bg-linear-to-br from-[#dcf1dc] to-leaf-600 text-white',
+        src: '/images/plants/field-guide/moss-3.jpg',
+        alt: 'A close-up of bright green moss in damp shade',
+      },
     ],
     intro:
       'Moss has no roots and no proper veins. It lives in damp shade and takes water in through its whole surface.',
@@ -229,6 +509,51 @@ export const plants = [
     ],
     didYouKnow:
       'A patch of moss can hold many times its own weight in water, which helps a forest floor stay damp.',
+  },
+  {
+    id: 'pitcher-plant',
+    name: 'Pitcher plant',
+    group: 'Weird plants',
+    superpower: 'Grows its own pitfall trap',
+    icon: Leaf,
+    visual: 'bg-linear-to-br from-[#dcf1dc] to-[#7a3f5e] text-white',
+    stats: [
+      { label: 'Trap', value: 'Up to 30 cm' },
+      { label: 'Diet', value: 'Insects' },
+      { label: 'Home', value: 'Bogs' },
+    ],
+    media: [
+      {
+        label: 'The pitcher',
+        icon: Leaf,
+        visual: 'bg-linear-to-br from-[#dcf1dc] to-[#7a3f5e] text-white',
+        src: '/images/plants/field-guide/pitcher-plant-1.jpg',
+        alt: 'Red and green pitcher plants hanging from their leaves',
+      },
+      {
+        label: 'The rim',
+        icon: Droplets,
+        visual: 'bg-linear-to-br from-[#cfeaf5] to-ocean-500 text-white',
+        src: '/images/plants/field-guide/pitcher-plant-3.jpg',
+        alt: 'A cluster of pitcher plants showing their curled rims',
+      },
+      {
+        label: 'The prey',
+        icon: Bug,
+        visual: 'bg-linear-to-br from-[#e2ebd8] to-[#5b6b4a] text-white',
+        src: '/images/plants/field-guide/pitcher-plant-2.jpg',
+        alt: 'A fly trapped inside the fluid of a pitcher plant',
+      },
+    ],
+    intro:
+      'A pitcher plant rolls one of its leaves into a deep cup with a slippery rim. Insects that land on it slide down and cannot climb back out.',
+    facts: [
+      'The cup holds a pool of digestive liquid that breaks down the catch.',
+      'A lid above the opening keeps rain from filling the pitcher and watering down the liquid.',
+      'Some bats and birds use the larger pitchers as a safe place to roost.',
+    ],
+    didYouKnow:
+      'Some pitcher plants have a sugary rim that makes visiting insects even more likely to slip.',
   },
   {
     id: 'duckweed',
@@ -243,9 +568,28 @@ export const plants = [
       { label: 'Home', value: 'Still ponds' },
     ],
     media: [
-      { label: 'The mat', icon: Droplets, visual: 'bg-linear-to-br from-[#dcf1dc] to-ocean-500 text-white' },
-      { label: 'The pond', icon: Waves, visual: 'bg-linear-to-br from-[#cfeaf5] to-ocean-600 text-white' },
-      { label: 'The ducks', icon: Leaf, visual: 'bg-linear-to-br from-leaf-100 to-leaf-600 text-white' },
+      {
+        label: 'The mat',
+        icon: Droplets,
+        visual: 'bg-linear-to-br from-[#dcf1dc] to-ocean-500 text-white',
+        src: '/images/plants/field-guide/duckweed-1.jpg',
+        alt: 'A pond completely covered by a green mat of duckweed',
+      },
+      {
+        label: 'The pond',
+        icon: Waves,
+        visual: 'bg-linear-to-br from-[#cfeaf5] to-ocean-600 text-white',
+        src: '/images/plants/field-guide/duckweed-2.jpg',
+        alt: 'Tiny duckweed plants floating close together on still water',
+      },
+      {
+        label: 'The ducks',
+        icon: Leaf,
+        visual: 'bg-linear-to-br from-leaf-100 to-leaf-600 text-white',
+        src: '/images/plants/field-guide/duckweed-3.jpg',
+        alt: 'Canada geese swimming through duckweed on a pond',
+        objectPosition: 'center 35%',
+      },
     ],
     intro:
       'Duckweed floats on still water in a bright green mat. Each plant is barely bigger than a pinhead.',
@@ -270,9 +614,27 @@ export const plants = [
       { label: 'Stores', value: 'Carbon' },
     ],
     media: [
-      { label: 'The meadow', icon: Waves, visual: 'bg-linear-to-br from-[#cfeaf5] to-ocean-600 text-white' },
-      { label: 'The flowers', icon: Flower2, visual: 'bg-linear-to-br from-[#dcf1dc] to-leaf-600 text-white' },
-      { label: 'The nursery', icon: Droplets, visual: 'bg-linear-to-br from-[#cfeaf5] to-ocean-500 text-white' },
+      {
+        label: 'The meadow',
+        icon: Waves,
+        visual: 'bg-linear-to-br from-[#cfeaf5] to-ocean-600 text-white',
+        src: '/images/plants/field-guide/seagrass-1.jpg',
+        alt: 'A shallow lagoon with seagrass growing across the seabed',
+      },
+      {
+        label: 'The blades',
+        icon: Leaf,
+        visual: 'bg-linear-to-br from-[#dcf1dc] to-leaf-600 text-white',
+        src: '/images/plants/field-guide/seagrass-2.jpg',
+        alt: 'Seagrass blades rising through clear blue water',
+      },
+      {
+        label: 'The nursery',
+        icon: Droplets,
+        visual: 'bg-linear-to-br from-[#cfeaf5] to-ocean-500 text-white',
+        src: '/images/plants/field-guide/seagrass-3.jpg',
+        alt: 'Sunlight falling on a dense bed of seagrass underwater',
+      },
     ],
     intro:
       'Seagrass is a flowering plant that lives in the sea. It grows in meadows that shelter young fish and turtles.',
@@ -283,6 +645,52 @@ export const plants = [
     ],
     didYouKnow:
       'A seagrass meadow can be as productive as a rainforest, hectare for hectare.',
+  },
+  {
+    id: 'lotus',
+    name: 'Lotus',
+    group: 'Water plants',
+    superpower: 'Rises clean out of muddy water',
+    icon: Flower2,
+    visual: 'bg-linear-to-br from-[#f7d9e8] to-[#4f7f6a] text-white',
+    stats: [
+      { label: 'Leaf', value: 'Up to 60 cm' },
+      { label: 'Petals', value: 'Waterproof' },
+      { label: 'Home', value: 'Still ponds' },
+    ],
+    media: [
+      {
+        label: 'The bloom',
+        icon: Flower2,
+        visual: 'bg-linear-to-br from-[#f7d9e8] to-[#4f7f6a] text-white',
+        src: '/images/plants/field-guide/lotus-1.jpg',
+        alt: 'A pink lotus flower opening among broad green leaves',
+      },
+      {
+        label: 'The pads',
+        icon: Leaf,
+        visual: 'bg-linear-to-br from-[#dcf1dc] to-leaf-600 text-white',
+        src: '/images/plants/field-guide/lotus-2.jpg',
+        alt: 'Pink lotus flowers and round leaves crowding a pond',
+      },
+      {
+        label: 'The pond',
+        icon: Waves,
+        visual: 'bg-linear-to-br from-[#cfeaf5] to-ocean-600 text-white',
+        src: '/images/plants/field-guide/lotus-3.jpg',
+        alt: 'A white lotus flower reflected on still dark water',
+        objectPosition: 'center 60%',
+      },
+    ],
+    intro:
+      'The lotus roots in the mud at the bottom of a pond and sends long stalks up to flowers that open above the surface.',
+    facts: [
+      'Its round leaves are waterproof, so rain rolls off and carries dirt away with it.',
+      'Lotus seeds can stay alive for hundreds of years and still sprout once they get wet.',
+      'The flower opens in the morning and closes again for the night.',
+    ],
+    didYouKnow:
+      'The lotus stays so clean that scientists copy its surface to make self-cleaning paints and glass.',
   },
 ]
 
@@ -306,6 +714,7 @@ export const plantsQuiz = {
       answer: 1,
       explain:
         'Roots take up water and minerals, but the food itself is built in the leaves from water, carbon dioxide and light.',
+      hint: 'Roots supply the water, but the leaves do the building. Think about what else a leaf takes in from the air and the sun.',
     },
     {
       question: 'Why do desert plants often have spines instead of big leaves?',
@@ -318,6 +727,7 @@ export const plantsQuiz = {
       answer: 2,
       explain:
         'Leaves lose water through their surface, so turning them into spines saves water in dry places.',
+      hint: 'A big, flat leaf gives water plenty of room to escape. Think about what a desert plant is trying hardest to keep.',
     },
     {
       question: 'What happens if a plant gets too much water?',
@@ -330,6 +740,7 @@ export const plantsQuiz = {
       answer: 1,
       explain:
         'Waterlogged soil pushes air out. Roots need oxygen too, so they can rot when the soil stays soaked.',
+      hint: 'Roots do more than drink. Think about what they need from the tiny gaps between soil particles — and what water pushes out of those gaps.',
     },
   ],
 }

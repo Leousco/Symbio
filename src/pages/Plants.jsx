@@ -23,7 +23,7 @@ function Plants() {
         icon={Flower2}
         orb="bg-linear-to-br from-leaf-100 via-leaf-500 to-leaf-700 dark:from-[#0c2a19] dark:via-[#1f8a4c] dark:to-[#166534]"
         chips={[
-          { icon: Flower2, label: '10 plants' },
+          { icon: Flower2, label: '15 plants' },
           { icon: Droplets, label: 'Water from roots' },
           { icon: Sun, label: 'Food from light' },
         ]}
@@ -38,6 +38,8 @@ function Plants() {
         items={plants}
         groups={plantGroups}
         accentClass="bg-leaf-600 text-cream"
+        pageSize={9}
+        randomCardPhoto
       />
 
       {article && (

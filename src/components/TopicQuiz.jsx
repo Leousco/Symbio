@@ -134,13 +134,13 @@ function TopicQuiz({
               </>
             ) : (
               question.hint && (
-                <div className="flex items-start gap-3 rounded-2xl border border-hairline/60 bg-surface/50 px-4 py-3">
-                  <Lightbulb size={17} className="mt-0.5 flex-none text-bark/40" />
+                <div className="flex items-start gap-3 rounded-2xl border border-hairline/80 bg-surface/80 px-4 py-3">
+                  <Lightbulb size={17} className="mt-0.5 flex-none text-bark/60" />
                   <div>
-                    <p className="text-xs font-extrabold uppercase tracking-wide text-bark/40">
+                    <p className="text-xs font-extrabold uppercase tracking-wide text-bark/60">
                       How to think about it
                     </p>
-                    <p className="mt-0.5 text-sm leading-relaxed text-bark/60">{question.hint}</p>
+                    <p className="mt-0.5 text-sm leading-relaxed text-bark/80">{question.hint}</p>
                   </div>
                 </div>
               )
