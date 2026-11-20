@@ -2,6 +2,32 @@ import { useRef, useState } from 'react'
 import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import InfoModal from './InfoModal'
 
+const photoRotationKey = 'symbio:card-photos'
+
+// Pick a photo for a card and remember the choice, so the next page load moves
+// on to a different shot instead of occasionally repeating the same one.
+function pickCardPhoto(item, key) {
+  const photos = (item.media ?? []).filter((media) => media.src)
+  if (photos.length === 0) return null
+  if (photos.length === 1) return photos[0]
+
+  let index = Math.floor(Math.random() * photos.length)
+  try {
+    const saved = JSON.parse(window.localStorage.getItem(photoRotationKey) ?? '{}')
+    const last = saved[key]
+    if (Number.isInteger(last)) {
+      // Step by anything except 0, so the same shot never follows itself.
+      const step = 1 + Math.floor(Math.random() * (photos.length - 1))
+      index = (last + step) % photos.length
+    }
+    saved[key] = index
+    window.localStorage.setItem(photoRotationKey, JSON.stringify(saved))
+  } catch {
+    // Storage can be unavailable (private mode); the random pick above stands in.
+  }
+  return photos[index]
+}
+
 // Filterable gallery of field-guide entries. Each card opens the post-style
 // InfoModal, so the grid itself stays visual and calm. Set `pageSize` to split
 // long guides into pages; groups that fit on one page keep the plain grid.
@@ -27,10 +53,8 @@ function FieldGuide({
     if (!randomCardPhoto) return {}
     const picks = {}
     items.forEach((item) => {
-      const photos = (item.media ?? []).filter((media) => media.src)
-      if (photos.length > 0) {
-        picks[item.id] = photos[Math.floor(Math.random() * photos.length)]
-      }
+      const photo = pickCardPhoto(item, `${title ?? id}:${item.id}`)
+      if (photo) picks[item.id] = photo
     })
     return picks
   })
@@ -129,24 +153,28 @@ function FieldGuide({
               className="group glass flex w-full flex-col overflow-hidden rounded-3xl p-0 text-left transition duration-300 hover:-translate-y-1.5 hover:bg-surface/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
             >
               <span
-                className={`relative flex h-36 items-center justify-center ${item.visual}`}
+                className={`relative flex h-36 items-center justify-center overflow-hidden ${item.visual}`}
                 aria-hidden="true"
               >
-                {photo ? (
+                {/* The icon sits underneath the photo, so a slow or missing
+                    image still leaves a card that reads at a glance. */}
+                <Icon
+                  size={56}
+                  strokeWidth={1.3}
+                  className="transition duration-500 group-hover:scale-110"
+                />
+                {photo && (
                   <img
                     src={photo.src}
                     alt=""
                     loading="lazy"
                     decoding="async"
                     draggable="false"
+                    onError={(event) => {
+                      event.currentTarget.style.display = 'none'
+                    }}
                     style={{ objectPosition: photo.objectPosition ?? 'center' }}
                     className="absolute inset-0 h-full w-full select-none object-cover transition duration-500 group-hover:scale-105"
-                  />
-                ) : (
-                  <Icon
-                    size={56}
-                    strokeWidth={1.3}
-                    className="transition duration-500 group-hover:scale-110"
                   />
                 )}
                 <span className="absolute left-3 top-3 z-10 rounded-full bg-surface/85 px-3 py-1 text-xs font-extrabold text-bark dark:bg-[#0b0d1c]/80 dark:text-white">

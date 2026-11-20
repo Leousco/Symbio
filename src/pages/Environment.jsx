@@ -25,7 +25,7 @@ function Environment() {
         chips={[
           { icon: Recycle, label: '12 things to sort' },
           { icon: Waves, label: 'Land to sea' },
-          { icon: Trees, label: '8 big ideas' },
+          { icon: Trees, label: '15 big ideas' },
         ]}
         secondaryLabel="Play sort it out"
       />
@@ -34,10 +34,12 @@ function Environment() {
 
       <FieldGuide
         title="The ideas behind the bins"
-        description="Eight concepts, from composting to biodiversity. Tap a card for what it is and what you can do."
+        description="Fifteen cards in three layers: the four bins, one material for each, then the places your choices reach. Tap a card for what it is and what you can do."
         items={environmentEntries}
         groups={environmentGroups}
         accentClass="bg-ocean-600 text-cream"
+        pageSize={9}
+        randomCardPhoto
       />
 
       {article && (

@@ -266,12 +266,28 @@ function Sorter({ bins, items, className = '', coach = false }) {
           {coach ? (
             <CoachNote item={item} solved={solved} missed={missed} />
           ) : (
-            <p
+            <div
               aria-live="polite"
-              className="mt-4 h-18 overflow-hidden text-sm leading-6 text-bark/80 md:text-base"
+              className="mt-4 flex h-24 items-start text-sm leading-6 text-bark/80 md:text-base"
             >
-              <span className="line-clamp-3">{feedback}</span>
-            </p>
+              {!solved && !missed && item.hint ? (
+                <>
+                  <Lightbulb
+                    size={16}
+                    className="mr-2.5 mt-1 flex-none text-[#8a6d1f] dark:text-sun-400"
+                    aria-hidden="true"
+                  />
+                  <div className="min-w-0">
+                    <p className="text-xs font-extrabold uppercase tracking-wide text-bark/60">
+                      How to think about it
+                    </p>
+                    <p className="mt-0.5 line-clamp-3 leading-6 text-bark/80">{item.hint}</p>
+                  </div>
+                </>
+              ) : (
+                <span className="line-clamp-3">{feedback}</span>
+              )}
+            </div>
           )}
 
           <div
