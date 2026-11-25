@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Globe } from 'lucide-react'
+import { ArrowRight, CloudRain, Droplets, Globe, Sprout } from 'lucide-react'
 import GlassCard from '../components/GlassCard'
 import FactOfTheDay from '../components/FactOfTheDay'
 import ArticlePreview from '../components/ArticlePreview'
@@ -13,26 +13,7 @@ const heroChips = [
   { topic: topics[2], position: 'bottom-8 left-4' },
 ]
 
-const quizLevels = [
-  {
-    level: 'Level 1',
-    title: 'Explorer',
-    text: 'Short questions and big pictures. A good place to start.',
-    badge: 'bg-sun-100',
-  },
-  {
-    level: 'Level 2',
-    title: 'Scientist',
-    text: 'Trickier questions that use the deeper facts from each topic.',
-    badge: 'bg-ocean-100',
-  },
-  {
-    level: 'Level 3',
-    title: 'Genius',
-    text: 'The toughest questions for curious minds ready for a real challenge.',
-    badge: 'bg-[#fbdada] dark:bg-[#3a1d2a]',
-  },
-]
+const gameTags = ['Catch to heal', 'Grow as you catch', 'Storm every 30s']
 
 function Home() {
   return (
@@ -154,33 +135,73 @@ function Home() {
       {/* Featured activity */}
       <SorterTeaser />
 
-      {/* Quizzes (placeholders until the quiz is built) */}
-      <section aria-labelledby="quiz-heading" className="space-y-6">
+      {/* Mini games */}
+      <section aria-labelledby="games-heading" className="space-y-6">
         <div className="px-2">
-          <h2 id="quiz-heading" className="text-4xl font-semibold">
-            Test what you know
+          <h2 id="games-heading" className="text-4xl font-semibold">
+            Mini games
           </h2>
-          <p className="mt-1 text-lg text-bark/80">Pick a level and see how many you get right.</p>
+          <p className="mt-1 text-lg text-bark/80">
+            Learn by playing. First up: keep a plant alive in a downpour.
+          </p>
         </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {quizLevels.map(({ level, title, text, badge }) => (
-            <GlassCard key={title} className="flex flex-col items-start gap-3 sm:p-7">
-              <span className={`rounded-full px-4 py-1 text-sm font-extrabold ${badge}`}>
-                {level}
+
+        <GlassCard className="grid items-center gap-10 sm:p-8 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="flex flex-col items-start gap-4">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-ocean-100 px-4 py-1 text-sm font-extrabold text-ocean-600">
+              <CloudRain size={15} aria-hidden="true" />
+              Playable now · Plants
+            </span>
+            <h3 className="font-heading text-3xl font-semibold sm:text-4xl">Catch the rain</h3>
+            <p className="max-w-xl leading-relaxed text-bark/80">
+              Slide a potted plant under the falling drops. Catch them to fill the health meter
+              and grow the plant; miss too many and it wilts. The storm gets heavier every 30
+              seconds.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {gameTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-leaf-600/15 bg-leaf-100 px-3 py-1 text-sm font-extrabold text-leaf-700"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <Link
+              to="/games/catch-the-rain"
+              className="group mt-1 inline-flex min-h-13 items-center gap-2 rounded-full bg-leaf-600 px-7 text-lg font-bold text-cream shadow-lg transition hover:-translate-y-0.5 hover:bg-leaf-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-600"
+            >
+              Play Catch the rain
+              <ArrowRight size={20} className="transition group-hover:translate-x-1" aria-hidden="true" />
+            </Link>
+          </div>
+
+          <div aria-hidden="true" className="relative mx-auto aspect-square w-full max-w-xs">
+            <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] bg-linear-to-br from-ocean-100 via-cream to-leaf-100 shadow-xl dark:from-[#0b1024] dark:via-[#16233c] dark:to-[#143a2b]">
+              <CloudRain
+                className="h-full w-full p-12 text-ocean-600/70 dark:text-ocean-600"
+                strokeWidth={0.8}
+              />
+            </div>
+            <span className="glass absolute -left-3 top-8 flex items-center gap-2 rounded-full py-2 pl-2 pr-4 text-sm font-bold">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-leaf-100 text-leaf-700">
+                <Sprout size={16} />
               </span>
-              <h3 className="text-3xl font-semibold">{title}</h3>
-              <p className="leading-relaxed text-bark/80">{text}</p>
-              {/* TODO: turn this into a <Link> once the quiz page exists */}
-              <button
-                type="button"
-                disabled
-                className="mt-auto inline-flex min-h-12 cursor-not-allowed items-center rounded-full bg-bark/15 px-6 font-bold text-bark/70"
-              >
-                Coming soon
-              </button>
-            </GlassCard>
-          ))}
-        </div>
+              Grows as you catch
+            </span>
+            <span className="glass absolute -right-2 bottom-10 flex items-center gap-2 rounded-full py-2 pl-2 pr-4 text-sm font-bold">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ocean-100 text-ocean-600">
+                <Droplets size={16} />
+              </span>
+              Health meter
+            </span>
+          </div>
+        </GlassCard>
+
+        <p className="px-2 text-sm font-bold text-bark/55">
+          Two more mini games are on the way.
+        </p>
       </section>
     </div>
   )
