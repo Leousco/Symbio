@@ -152,6 +152,95 @@
   }
 }
 
+/* ── Guess the Animal game animations ───────────────────────────────────────── */
+
+/* Flash of light when the animal is revealed */
+@keyframes revealFlash {
+  0%   { opacity: 0.9; }
+  40%  { opacity: 0.6; }
+  100% { opacity: 0; }
+}
+
+/* Silhouette pops to full size on reveal */
+@keyframes animalRevealPop {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Night-mode silhouette sheen gently breathes so the shape stays readable */
+@keyframes silhouetteSheen {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+
+/* Result screen: image slides left */
+@keyframes slideImageLeft {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Result screen: info panel slides in from right */
+@keyframes slideInfoRight {
+  from {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Toast notification slides in from top */
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toastOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+  }
+}
+
+/* Heart shake when a life is lost */
+@keyframes heartLose {
+  0%   { transform: scale(1); }
+  20%  { transform: scale(1.5) rotate(-15deg); }
+  50%  { transform: scale(0.8) rotate(10deg); }
+  75%  { transform: scale(1.1) rotate(-5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Auto-continue fill sweeps from right edge to left over the button duration */
+@keyframes continueFill {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
 @layer base {
   /* Backdrop + glass values per theme (light by default) */
   :root {

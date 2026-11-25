@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, CloudRain, Droplets, Globe, Sprout } from 'lucide-react'
+import { ArrowRight, CloudRain, Droplets, Globe, PawPrint, Sprout } from 'lucide-react'
 import GlassCard from '../components/GlassCard'
 import FactOfTheDay from '../components/FactOfTheDay'
 import ArticlePreview from '../components/ArticlePreview'
@@ -13,7 +13,8 @@ const heroChips = [
   { topic: topics[2], position: 'bottom-8 left-4' },
 ]
 
-const gameTags = ['Catch to heal', 'Grow as you catch', 'Storm every 30s']
+const gameTags = ['Catch to heal', 'Grow as you catch', 'Storm every 20s']
+const guessTags = ['5 hearts', '25-second timer', 'Hint system']
 
 function Home() {
   return (
@@ -142,7 +143,7 @@ function Home() {
             Mini games
           </h2>
           <p className="mt-1 text-lg text-bark/80">
-            Learn by playing. First up: keep a plant alive in a downpour.
+            Learn by playing. Keep a plant alive in a downpour, or guess the animal from its silhouette.
           </p>
         </div>
 
@@ -155,7 +156,7 @@ function Home() {
             <h3 className="font-heading text-3xl font-semibold sm:text-4xl">Catch the rain</h3>
             <p className="max-w-xl leading-relaxed text-bark/80">
               Slide a potted plant under the falling drops. Catch them to fill the health meter
-              and grow the plant; miss too many and it wilts. The storm gets heavier every 30
+              and grow the plant; miss too many and it wilts. The storm gets heavier every 20
               seconds.
             </p>
             <div className="flex flex-wrap gap-2">
@@ -199,9 +200,57 @@ function Home() {
           </div>
         </GlassCard>
 
-        <p className="px-2 text-sm font-bold text-bark/55">
-          Two more mini games are on the way.
-        </p>
+        <GlassCard className="grid items-center gap-10 sm:p-8 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="flex flex-col items-start gap-4">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-sun-100 px-4 py-1 text-sm font-extrabold text-sun-500">
+              <PawPrint size={15} aria-hidden="true" />
+              Playable now · Animals
+            </span>
+            <h3 className="font-heading text-3xl font-semibold sm:text-4xl">Guess the animal</h3>
+            <p className="max-w-xl leading-relaxed text-bark/80">
+              A black silhouette appears. Type the animal's name and use autocomplete to find it.
+              Five hearts, 25 seconds per round — animals get rarer as you progress.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {guessTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-sun-400/20 bg-sun-100 px-3 py-1 text-sm font-extrabold text-sun-500"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <Link
+              to="/games/guess-the-animal"
+              className="group mt-1 inline-flex min-h-13 items-center gap-2 rounded-full bg-sun-500 px-7 text-lg font-bold text-ink shadow-lg transition hover:-translate-y-0.5 hover:bg-sun-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sun-500"
+            >
+              Play Guess the animal
+              <ArrowRight size={20} className="transition group-hover:translate-x-1" aria-hidden="true" />
+            </Link>
+          </div>
+
+          <div aria-hidden="true" className="relative mx-auto aspect-square w-full max-w-xs">
+            <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] bg-linear-to-br from-sun-100 via-cream to-leaf-100 shadow-xl dark:from-[#241a06] dark:via-[#1c1c10] dark:to-[#143a2b]">
+              <PawPrint
+                className="h-full w-full p-12 text-sun-500/60 dark:text-sun-500"
+                strokeWidth={0.8}
+              />
+            </div>
+            <span className="glass absolute -left-3 top-8 flex items-center gap-2 rounded-full py-2 pl-2 pr-4 text-sm font-bold">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sun-100 text-sun-500">
+                <PawPrint size={16} />
+              </span>
+              Identify by shape
+            </span>
+            <span className="glass absolute -right-2 bottom-10 flex items-center gap-2 rounded-full py-2 pl-2 pr-4 text-sm font-bold">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-leaf-100 text-leaf-700">
+                <Droplets size={16} />
+              </span>
+              Learn every round
+            </span>
+          </div>
+        </GlassCard>
       </section>
     </div>
   )

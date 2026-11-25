@@ -5,6 +5,7 @@ import Animals from './pages/Animals'
 import Plants from './pages/Plants'
 import Environment from './pages/Environment'
 import CatchTheRain from './pages/CatchTheRain'
+import GuessTheAnimal from './pages/GuessTheAnimal'
 import NotFound from './pages/NotFound'
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/plants" element={<Plants />} />
         <Route path="/environment" element={<Environment />} />
         <Route path="/games/catch-the-rain" element={<CatchTheRain />} />
+        <Route path="/games/guess-the-animal" element={<GuessTheAnimal />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

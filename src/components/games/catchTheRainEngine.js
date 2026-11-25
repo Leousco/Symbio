@@ -989,40 +989,47 @@ export default class CatchTheRainEngine {
     ctx.rotate(angle)
     ctx.globalAlpha = ambient ? 0.6 : 1
 
+    const belly = halfWidth * 1.3
     ctx.beginPath()
     ctx.moveTo(0, -length)
-    ctx.lineTo(halfWidth, 0)
-    ctx.arc(0, 0, halfWidth, 0, Math.PI)
+    ctx.bezierCurveTo(belly * 0.1, -length * 0.62, belly, -belly * 2.6, belly, 0)
+    ctx.arc(0, 0, belly, 0, Math.PI)
+    ctx.bezierCurveTo(-belly, -belly * 2.6, -belly * 0.1, -length * 0.62, 0, -length)
     ctx.closePath()
 
     ctx.lineJoin = 'round'
-    ctx.strokeStyle = dark ? 'rgba(125, 220, 255, 0.28)' : 'rgba(255, 255, 255, 0.6)'
-    ctx.lineWidth = halfWidth * 1.9
+    ctx.strokeStyle = dark ? 'rgba(125, 220, 255, 0.2)' : 'rgba(255, 255, 255, 0.85)'
+    ctx.lineWidth = belly * 1.9
     ctx.stroke()
 
-    const body = ctx.createLinearGradient(0, -length, 0, halfWidth)
+    const body = ctx.createLinearGradient(-belly, 0, belly, 0)
     if (dark) {
-      body.addColorStop(0, 'rgba(150, 225, 255, 0)')
-      body.addColorStop(0.55, 'rgba(150, 225, 255, 0.7)')
-      body.addColorStop(1, 'rgba(225, 248, 255, 1)')
+      body.addColorStop(0, 'rgba(190, 242, 255, 0.95)')
+      body.addColorStop(0.35, 'rgba(70, 160, 220, 0.8)')
+      body.addColorStop(0.7, 'rgba(60, 150, 215, 0.8)')
+      body.addColorStop(1, 'rgba(150, 225, 255, 0.95)')
     } else {
-      body.addColorStop(0, 'rgba(14, 100, 190, 0)')
-      body.addColorStop(0.55, 'rgba(14, 100, 190, 0.7)')
-      body.addColorStop(1, 'rgba(10, 82, 170, 1)')
+      body.addColorStop(0, 'rgba(0, 85, 195, 1)')
+      body.addColorStop(0.35, 'rgba(50, 160, 245, 0.98)')
+      body.addColorStop(0.7, 'rgba(20, 125, 230, 0.98)')
+      body.addColorStop(1, 'rgba(0, 70, 170, 1)')
     }
     ctx.fillStyle = body
     ctx.fill()
 
-    const glint = (t * 2.6 + phase) % 1
-    const glintY = -length * (0.12 + glint * 0.72)
-    ctx.fillStyle = `rgba(255, 255, 255, ${0.75 * (1 - glint)})`
+    ctx.strokeStyle = dark ? 'rgba(225, 248, 255, 0.95)' : 'rgba(0, 55, 135, 0.85)'
+    ctx.lineWidth = dark ? 0.9 : 0.8
+    ctx.stroke()
+
+    const shimmer = 0.8 + Math.sin(t * 6 + phase) * 0.2
+    ctx.fillStyle = `rgba(255, 255, 255, ${0.95 * shimmer})`
     ctx.beginPath()
-    ctx.ellipse(0, glintY, halfWidth * 0.45, Math.max(1.5, length * 0.1), 0, 0, TAU)
+    ctx.ellipse(-belly * 0.42, -belly * 0.9, Math.max(0.6, belly * 0.2), belly * 0.75, 0.12, 0, TAU)
     ctx.fill()
 
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.95)'
+    ctx.fillStyle = `rgba(255, 255, 255, ${0.7 * shimmer})`
     ctx.beginPath()
-    ctx.arc(-halfWidth * 0.3, -halfWidth * 0.1, Math.max(0.5, halfWidth * 0.32), 0, TAU)
+    ctx.arc(belly * 0.38, belly * 0.4, Math.max(0.5, belly * 0.16), 0, TAU)
     ctx.fill()
     ctx.restore()
   }
