@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, CloudRain, Droplets, Globe, PawPrint, Sprout } from 'lucide-react'
+import { ArrowRight, CloudRain, Droplets, Globe, HandHeart, PawPrint, Sprout, Trash2, Waves } from 'lucide-react'
 import GlassCard from '../components/GlassCard'
 import FactOfTheDay from '../components/FactOfTheDay'
 import ArticlePreview from '../components/ArticlePreview'
@@ -13,8 +13,9 @@ const heroChips = [
   { topic: topics[2], position: 'bottom-8 left-4' },
 ]
 
-const gameTags = ['Catch to heal', 'Grow as you catch', 'Storm every 20s']
-const guessTags = ['5 hearts', '25-second timer', 'Hint system']
+const gameTags    = ['Catch to heal', 'Grow as you catch', 'Storm every 20s']
+const guessTags   = ['5 hearts', '25-second timer', 'Hint system']
+const cleanupTags = ['90-second run', 'Rescue animals', 'Avoid obstacles']
 
 function Home() {
   return (
@@ -143,13 +144,13 @@ function Home() {
             Mini games
           </h2>
           <p className="mt-1 text-lg text-bark/80">
-            Learn by playing. Keep a plant alive in a downpour, or guess the animal from its silhouette.
+            Learn by playing. Keep a plant alive in a downpour, guess the animal from its silhouette, or clean up a polluted river.
           </p>
         </div>
 
         <GlassCard className="grid items-center gap-10 sm:p-8 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="flex flex-col items-start gap-4">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-ocean-100 px-4 py-1 text-sm font-extrabold text-ocean-600">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-leaf-200 px-4 py-1 text-sm font-extrabold text-leaf-700">
               <CloudRain size={15} aria-hidden="true" />
               Playable now · Plants
             </span>
@@ -163,7 +164,7 @@ function Home() {
               {gameTags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-leaf-600/15 bg-leaf-100 px-3 py-1 text-sm font-extrabold text-leaf-700"
+                  className="rounded-full border border-leaf-600/15 bg-leaf-200 px-3 py-1 text-sm font-extrabold text-leaf-700"
                 >
                   {tag}
                 </span>
@@ -179,9 +180,9 @@ function Home() {
           </div>
 
           <div aria-hidden="true" className="relative mx-auto aspect-square w-full max-w-xs">
-            <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] bg-linear-to-br from-ocean-100 via-cream to-leaf-100 shadow-xl dark:from-[#0b1024] dark:via-[#16233c] dark:to-[#143a2b]">
+            <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] bg-linear-to-br from-leaf-100 via-cream to-leaf-200 shadow-xl dark:from-[#07170e] dark:via-[#0f2a1c] dark:to-[#143a2b]">
               <CloudRain
-                className="h-full w-full p-12 text-ocean-600/70 dark:text-ocean-600"
+                className="h-full w-full p-12 text-leaf-600/70 dark:text-leaf-500"
                 strokeWidth={0.8}
               />
             </div>
@@ -192,7 +193,7 @@ function Home() {
               Grows as you catch
             </span>
             <span className="glass absolute -right-2 bottom-10 flex items-center gap-2 rounded-full py-2 pl-2 pr-4 text-sm font-bold">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ocean-100 text-ocean-600">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-leaf-100 text-leaf-700">
                 <Droplets size={16} />
               </span>
               Health meter
@@ -202,7 +203,7 @@ function Home() {
 
         <GlassCard className="grid items-center gap-10 sm:p-8 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="flex flex-col items-start gap-4">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-sun-100 px-4 py-1 text-sm font-extrabold text-sun-500">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-sun-100 px-4 py-1 text-sm font-extrabold text-[#7a4300] dark:text-sun-500">
               <PawPrint size={15} aria-hidden="true" />
               Playable now · Animals
             </span>
@@ -215,7 +216,7 @@ function Home() {
               {guessTags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-sun-400/20 bg-sun-100 px-3 py-1 text-sm font-extrabold text-sun-500"
+                  className="rounded-full border border-sun-400/30 bg-sun-100 px-3 py-1 text-sm font-extrabold text-[#7a4300] dark:text-sun-500"
                 >
                   {tag}
                 </span>
@@ -238,7 +239,7 @@ function Home() {
               />
             </div>
             <span className="glass absolute -left-3 top-8 flex items-center gap-2 rounded-full py-2 pl-2 pr-4 text-sm font-bold">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sun-100 text-sun-500">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sun-100 text-[#7a4300] dark:text-sun-500">
                 <PawPrint size={16} />
               </span>
               Identify by shape
@@ -248,6 +249,59 @@ function Home() {
                 <Droplets size={16} />
               </span>
               Learn every round
+            </span>
+          </div>
+        </GlassCard>
+
+        {/* River Cleanup */}
+        <GlassCard className="grid items-center gap-10 sm:p-8 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="flex flex-col items-start gap-4">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-ocean-100 px-4 py-1 text-sm font-extrabold text-ocean-600">
+              <Waves size={15} aria-hidden="true" />
+              Playable now · Environment
+            </span>
+            <h3 className="font-heading text-3xl font-semibold sm:text-4xl">River cleanup</h3>
+            <p className="max-w-xl leading-relaxed text-bark/80">
+              Pilot a cleanup boat through a polluted river. Collect floating garbage, dodge rocks
+              and logs, and rescue stranded animals. 90 seconds to clean as much as you can.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {cleanupTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-ocean-500/15 bg-ocean-100 px-3 py-1 text-sm font-extrabold text-ocean-600"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <Link
+              to="/games/river-cleanup"
+              className="group mt-1 inline-flex min-h-13 items-center gap-2 rounded-full bg-ocean-600 px-7 text-lg font-bold text-cream shadow-lg transition hover:-translate-y-0.5 hover:bg-ocean-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean-600"
+            >
+              Play River cleanup
+              <ArrowRight size={20} className="transition group-hover:translate-x-1" aria-hidden="true" />
+            </Link>
+          </div>
+
+          <div aria-hidden="true" className="relative mx-auto aspect-square w-full max-w-xs">
+            <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] bg-linear-to-br from-ocean-100 via-cream to-leaf-100 shadow-xl dark:from-[#0b1024] dark:via-[#101d30] dark:to-[#143a2b]">
+              <Waves
+                className="h-full w-full p-12 text-ocean-600/60 dark:text-ocean-600"
+                strokeWidth={0.8}
+              />
+            </div>
+            <span className="glass absolute -left-3 top-8 flex items-center gap-2 rounded-full py-2 pl-2 pr-4 text-sm font-bold">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ocean-100 text-ocean-600">
+                <Trash2 size={16} />
+              </span>
+              Clean the river
+            </span>
+            <span className="glass absolute -right-2 bottom-10 flex items-center gap-2 rounded-full py-2 pl-2 pr-4 text-sm font-bold">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-leaf-100 text-leaf-700">
+                <HandHeart size={16} />
+              </span>
+              Rescue animals
             </span>
           </div>
         </GlassCard>

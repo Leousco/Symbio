@@ -6,6 +6,7 @@ import Plants from './pages/Plants'
 import Environment from './pages/Environment'
 import CatchTheRain from './pages/CatchTheRain'
 import GuessTheAnimal from './pages/GuessTheAnimal'
+import RiverCleanup from './pages/RiverCleanup'
 import NotFound from './pages/NotFound'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/environment" element={<Environment />} />
         <Route path="/games/catch-the-rain" element={<CatchTheRain />} />
         <Route path="/games/guess-the-animal" element={<GuessTheAnimal />} />
+        <Route path="/games/river-cleanup" element={<RiverCleanup />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import { Globe, Home, PawPrint, Sprout, Earth } from 'lucide-react'
+import { Home, PawPrint, Sprout, Earth } from 'lucide-react'
 import ThemeToggle from './ThemeToggle'
 
 const links = [
@@ -58,7 +58,12 @@ function Navbar() {
           to="/"
           className="flex items-center gap-2 font-heading text-lg font-bold sm:text-xl"
         >
-          <Globe size={28} />
+          <img
+            src={`${import.meta.env.BASE_URL}favicon.svg`}
+            alt=""
+            aria-hidden="true"
+            className="size-8 flex-none sm:size-9"
+          />
           SYMBIO
         </NavLink>
 
