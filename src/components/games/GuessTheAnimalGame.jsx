@@ -128,6 +128,35 @@ function roundDurationFor(round) {
   return ROUND_DURATION
 }
 
+// ─── Image preloading ─────────────────────────────────────────────────────────
+// Mirrors the decode cache used by the homepage slideshow. Decoding the
+// silhouette before the round clock starts means the timer and the animal
+// always appear together, even on a slow connection.
+
+const imageLoads = new Map()
+
+function preloadImage(src, priority = 'auto') {
+  if (!src) return Promise.resolve()
+  const pending = imageLoads.get(src)
+  if (pending) return pending
+
+  const promise = new Promise((resolve) => {
+    const img = new Image()
+    img.decoding = 'async'
+    if (priority !== 'auto') img.fetchPriority = priority
+    const done = () => resolve()
+    img.onload = () => {
+      if (img.decode) img.decode().then(done).catch(done)
+      else done()
+    }
+    img.onerror = done
+    img.src = src
+  })
+
+  imageLoads.set(src, promise)
+  return promise
+}
+
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
 // Animated heart row — the heart at `animIdx` plays the lose animation
@@ -341,9 +370,15 @@ export default function GuessTheAnimalGame() {
   const [lostHeartIdx, setLostHeartIdx] = useState(-1)
 
   // Queue
-  const queueRef = useRef([])
-  const usedIds  = useRef([])
+  const queueRef     = useRef([])
+  const idleQueueRef = useRef(null)
+  const usedIds      = useRef([])
   const [animal, setAnimal] = useState(null)
+
+  // Image readiness — the clock only starts once the current silhouette is
+  // decoded, so the player never loses time to a blank image.
+  const [readyImageId, setReadyImageId] = useState(null)
+  const imageReady = !!animal && readyImageId === animal.id
 
   // Timer
   const [elapsed,   setElapsed]   = useState(0)
@@ -536,13 +571,52 @@ export default function GuessTheAnimalGame() {
     setAnimal(a)
   }, [])
 
+  // ── Image warming ──────────────────────────────────────────────────────────
+
+  // While the menu is showing, build the opening queue and warm its first
+  // rounds. startGame reuses this exact queue, so the first animal is usually
+  // already decoded by the time the player presses Start. The opening animal
+  // goes first at high priority; the rest follow once it has decoded.
+  useEffect(() => {
+    if (phase !== 'idle') return
+    let cancelled = false
+    const queue = buildQueue()
+    idleQueueRef.current = queue
+    const [first, ...rest] = queue
+    preloadImage(first.image, 'high').then(() => {
+      if (cancelled) return
+      rest.slice(0, 3).forEach((a) => preloadImage(a.image, 'low'))
+    })
+    return () => { cancelled = true }
+  }, [phase])
+
+  // Decode the current animal before the clock is allowed to run.
+  useEffect(() => {
+    if (!animal) return
+    let cancelled = false
+    const id = animal.id
+    preloadImage(animal.image, 'high').then(() => {
+      if (!cancelled) setReadyImageId(id)
+    })
+    return () => { cancelled = true }
+  }, [animal])
+
+  // Warm the next few animals only after the current one is decoded, so the
+  // upcoming rounds never steal bandwidth from the round being played.
+  useEffect(() => {
+    if (!animal || !imageReady) return
+    queueRef.current.slice(0, 5).forEach((next) => preloadImage(next.image, 'low'))
+  }, [animal, imageReady])
+
   // ── Start game ─────────────────────────────────────────────────────────────
 
   const startGame = useCallback(() => {
     stopTimer()
     setPaused(false)
-    usedIds.current  = []
-    queueRef.current = buildQueue()
+    usedIds.current = []
+    // Reuse the queue warmed while the menu was visible; otherwise build one.
+    queueRef.current = idleQueueRef.current?.length ? idleQueueRef.current : buildQueue()
+    idleQueueRef.current = null
     setHearts(MAX_HEARTS)
     setScore(0)
     setRound(0)
@@ -563,9 +637,10 @@ export default function GuessTheAnimalGame() {
     setPhase('playing')
   }, [stopTimer])
 
-  // Start/stop timer with phase — distinguishes fresh round from resume
+  // Start/stop timer with phase — distinguishes fresh round from resume.
+  // imageReady gates the fresh round so a slow image never eats clock time.
   useEffect(() => {
-    if (phase === 'playing' && !paused) {
+    if (phase === 'playing' && !paused && imageReady) {
       if (isResumingRef.current) {
         // Resume: pick up from where we left off
         isResumingRef.current = false
@@ -577,7 +652,7 @@ export default function GuessTheAnimalGame() {
       setTimeout(() => inputRef.current?.focus(), 60)
     }
     return () => { if (phase === 'playing') stopTimer() }
-  }, [phase, paused, startTimer, stopTimer])
+  }, [phase, paused, imageReady, startTimer, stopTimer])
 
   // After reveal animation, go to result_correct
   useEffect(() => {
@@ -854,6 +929,8 @@ export default function GuessTheAnimalGame() {
                   src={animal.image}
                   alt={isRevealing ? animal.name : 'Animal silhouette — guess what this is'}
                   draggable="false"
+                  decoding="async"
+                  fetchPriority="high"
                   className="absolute inset-0 h-full w-full object-contain"
                   style={{
                     filter:     isRevealing ? 'brightness(1) drop-shadow(0 0 24px rgba(255,255,220,0.5))' : 'brightness(0)',
@@ -861,26 +938,42 @@ export default function GuessTheAnimalGame() {
                     animation:  isRevealing ? 'animalRevealPop 0.6s 0.3s cubic-bezier(0.22,1,0.36,1) both' : 'none',
                   }}
                 />
-                {!isRevealing && dark && (
-                  // Moonlit sheen, masked to the animal's alpha so the black
-                  // silhouette reads clearly against the night jungle.
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0"
-                    style={{
-                      background:
-                        'linear-gradient(135deg, rgba(215,255,248,0.95) 0%, rgba(160,235,255,0.50) 10%, rgba(90,170,200,0.16) 22%, rgba(60,130,160,0.09) 38%, rgba(80,160,190,0.09) 60%, rgba(140,220,245,0.28) 79%, rgba(205,255,245,0.85) 94%, rgba(255,255,255,0.98) 100%)',
-                      WebkitMaskImage: `url(${animal.image})`,
-                      maskImage: `url(${animal.image})`,
-                      WebkitMaskSize: 'contain',
-                      maskSize: 'contain',
-                      WebkitMaskPosition: 'center',
-                      maskPosition: 'center',
-                      WebkitMaskRepeat: 'no-repeat',
-                      maskRepeat: 'no-repeat',
-                      animation: noMotion ? 'none' : 'silhouetteSheen 4.5s ease-in-out infinite',
-                    }}
-                  />
+                {!isRevealing && (
+                  <>
+                    {/* Soft halo so the shape separates from the background.
+                        Light mode gets a fainter version so it stays a
+                        silhouette instead of a bright cut-out. */}
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-0"
+                      style={{
+                        background: dark
+                          ? 'radial-gradient(ellipse at 50% 52%, rgba(132,244,216,0.26) 0%, rgba(132,244,216,0.08) 46%, rgba(132,244,216,0) 72%)'
+                          : 'radial-gradient(ellipse at 50% 52%, rgba(132,244,216,0.12) 0%, rgba(132,244,216,0.04) 46%, rgba(132,244,216,0) 72%)',
+                      }}
+                    />
+                    {/* Luminous fill masked to the animal's alpha. A near-solid
+                        wash in dark mode; a dimmer translucent wash in light
+                        mode keeps the silhouette readable without washing it
+                        out against the brighter jungle. */}
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-0"
+                      style={{
+                        background: dark
+                          ? 'linear-gradient(180deg, rgba(238,255,250,0.98) 0%, rgba(180,247,230,0.96) 48%, rgba(122,226,205,0.94) 100%)'
+                          : 'linear-gradient(180deg, rgba(225,255,246,0.58) 0%, rgba(165,238,220,0.50) 48%, rgba(112,208,186,0.42) 100%)',
+                        WebkitMaskImage: `url(${animal.image})`,
+                        maskImage: `url(${animal.image})`,
+                        WebkitMaskSize: 'contain',
+                        maskSize: 'contain',
+                        WebkitMaskPosition: 'center',
+                        maskPosition: 'center',
+                        WebkitMaskRepeat: 'no-repeat',
+                        maskRepeat: 'no-repeat',
+                      }}
+                    />
+                  </>
                 )}
               </div>
               {isRevealing && (
@@ -1115,18 +1208,18 @@ export default function GuessTheAnimalGame() {
             <Sparkles size={14} className="flex-none text-yellow-300" aria-hidden="true" />
           </div>
 
-          {/* Two-panel layout */}
-          <div className="flex flex-1 gap-3 overflow-hidden">
+          {/* Two-panel layout — stacks on phones so the fact has room to breathe */}
+          <div className="flex flex-1 flex-col gap-3 overflow-hidden sm:flex-row">
             {/* Image panel slides in */}
             <div
-              className="relative flex flex-none items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm"
-              style={{ width: '42%', animation: 'slideImageLeft 0.5s 0.05s cubic-bezier(0.22,1,0.36,1) both' }}
+              className="relative flex h-32 flex-none items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm sm:h-auto sm:w-[42%]"
+              style={{ animation: 'slideImageLeft 0.5s 0.05s cubic-bezier(0.22,1,0.36,1) both' }}
             >
               <img
                 src={animal.image}
                 alt={animal.name}
                 draggable="false"
-                className="max-h-full max-w-full object-contain p-3"
+                className="max-h-full max-w-full object-contain p-2 sm:p-3"
                 style={{ filter: 'brightness(1) drop-shadow(0 4px 20px rgba(0,0,0,0.5))' }}
               />
               <span className="absolute bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-black/60 px-2.5 py-1 text-xs font-extrabold uppercase tracking-[0.1em] text-white/60 backdrop-blur-sm">
@@ -1136,22 +1229,26 @@ export default function GuessTheAnimalGame() {
 
             {/* Info panel slides in */}
             <div
-              className="flex flex-1 flex-col gap-3 overflow-y-auto rounded-2xl border border-white/10 bg-black/50 p-4 backdrop-blur-sm scrollbar-soft"
+              className="flex flex-1 flex-col gap-3 overflow-y-auto rounded-2xl border border-white/10 bg-black/50 p-3 backdrop-blur-sm scrollbar-soft sm:p-4"
               style={{ animation: 'slideInfoRight 0.5s 0.1s cubic-bezier(0.22,1,0.36,1) both' }}
             >
-              <h3 className="font-heading text-xl font-semibold leading-tight text-white sm:text-2xl">
+              <h3 className="font-heading text-2xl font-semibold leading-tight text-white sm:text-3xl">
                 {animal.name}
               </h3>
-              <div className="flex items-start gap-2 rounded-xl border border-yellow-400/25 bg-yellow-900/30 px-3 py-2.5">
-                <Sparkles size={13} className="mt-0.5 flex-none text-yellow-300" aria-hidden="true" />
-                <p className="text-xs leading-relaxed text-yellow-100/90 sm:text-sm">
-                  <span className="font-extrabold text-yellow-300/90">Did you know? </span>
+
+              {/* One short, large fact — readable in the five seconds before
+                  the Continue button auto-advances. */}
+              <div className="flex flex-1 flex-col justify-center gap-2 rounded-xl border border-yellow-400/25 bg-yellow-900/30 px-3 py-3 sm:px-4 sm:py-4">
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-[0.14em] text-yellow-300/90">
+                  <Sparkles size={13} aria-hidden="true" />
+                  Did you know?
+                </span>
+                <p className="text-base leading-relaxed text-yellow-50/95 sm:text-xl">
                   {animal.fact}
                 </p>
               </div>
-              <p className="text-xs leading-relaxed text-white/60 sm:text-sm">{animal.description}</p>
 
-              <div className="mt-auto pt-1">
+              <div className="flex-none pt-1">
                 <ContinueButton
                   onContinue={continueRound}
                   label={hearts > 0 ? 'Continue' : 'See results'}

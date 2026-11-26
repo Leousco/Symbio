@@ -173,12 +173,6 @@
   }
 }
 
-/* Night-mode silhouette sheen gently breathes so the shape stays readable */
-@keyframes silhouetteSheen {
-  0%, 100% { opacity: 0.55; }
-  50%      { opacity: 1; }
-}
-
 /* Result screen: image slides left */
 @keyframes slideImageLeft {
   from {
